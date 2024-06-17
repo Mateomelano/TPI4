@@ -2,7 +2,12 @@ from sqlalchemy import create_engine
 
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DATABASE_URL = "mysql+mysqlconnector://root:mateo@localhost:3306/tpilab4"
+from dotenv import load_dotenv
+import os
+
+load_dotenv(".env")
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL)
 
