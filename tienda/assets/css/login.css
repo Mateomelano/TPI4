@@ -1,0 +1,67 @@
+.contenedorLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10vh 150px 250px 150px;
+  }
+  
+.cajaLogin {
+  border: none;
+  border-radius: 10px;
+  background-color: #1a1a1a;
+  padding: 0px 50px 0px 50px;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 1);
+}
+
+.cajaLogin h2 {
+  text-align: center;
+}
+
+.cajaLogin p {
+  padding-top: 40px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+.formLogin {
+  
+  width: 100%;
+}
+
+.formLogin input {
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  width: 100%;
+}
+
+.input-group {
+  padding: 15px;
+}
+
+.formLogin button {
+  padding: 10px;
+  width: 55%;
+  color: #fff;
+  background-color: #3f71ea;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.5s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.formLogin button:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}

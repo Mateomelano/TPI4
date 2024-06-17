@@ -1,0 +1,100 @@
+.vistaProducto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.contenedor-producto {
+    width: 800px;
+    display: flex;
+}
+
+.imagen img {
+    width: 400px;
+    padding: 10px 12px;
+    border: 2px solid #1a1a1a;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+    margin: 120px 20px;
+    transition: 0.6s ease;
+}
+
+.imagen img:hover {
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.2);
+    border: 2px solid #1a1a1a;
+    background-color: #1a1a1a;
+    transform: scale(1.03);
+}
+
+.tag {
+    background-color: #000;
+    color: #fff;
+    width: 30%;
+    text-align: center;
+    margin-top: 150px;
+}
+
+#nameProducto {
+    text-transform: uppercase;
+    font-size: 24px;
+}
+
+#descripcionProducto {
+    margin-top: 10px;
+    font-family: "League Spartan";
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+#precioProducto {
+    margin-top: 15px;
+    background-color: #000;
+    text-align: center;
+    color: #fff;
+    width: 35%;
+    padding: 2.5px;
+    border-radius: 25px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 12px;
+    color: #333;
+}
+
+input[type="number"] {
+    width: 40px;
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #141414;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+#btnComprar {
+    padding: 10px;
+    color: #fff;
+    width: 22%;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+#btnComprar:hover {
+    background-color: white;
+    color: #000000;
+    border: 1px solid blue;
+}

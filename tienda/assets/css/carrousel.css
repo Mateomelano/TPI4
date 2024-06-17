@@ -1,0 +1,38 @@
+#hero {
+    background-image: url("../../img/messi.png");
+    height: 90vh;
+    width: 100%;
+    background-size: cover;
+    background-position: top 10% right 0%;
+    padding: 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border-bottom:2px solid #000 ;
+}
+
+#hero h2 {
+    color: #ffffff;
+    background-color: #000;
+    border-radius: 25px;
+    padding: 20px;
+    margin-left: 150px;
+    font-size: 48px;
+    text-align: end;
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 7.6s ease, opacity 7.6s ease;
+    box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+#hero h2.loaded {
+    opacity: 1;
+    transform: translateX(-100%);
+}
+
+#hero h2:hover {
+    color: black;
+    background-color: white;
+    box-shadow: 2px 2px 5px 5px rgba(256, 256, 256, 0.5);
+}
