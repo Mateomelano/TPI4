@@ -8,25 +8,34 @@ async function listar(id) {
   if (isNaN(id)) 
     cadUrl = url;
   else
-    cadUrl = `${url}/${id}`;
-  console.log(cadUrl);
+    cadUrl = `${url}/${id}`;  
+  console.log(fetch(cadUrl).then((respuesta) => respuesta.json()));
   return await fetch(cadUrl).then((respuesta) => respuesta.json());
 }
 
 // Función para crear un nuevo usuario
 async function crear(nombre, email, password) {
+  console.log(
+    JSON.stringify({
+      id: 0,
+      nombre: nombre,
+      email: email,
+      password: password,
+      rol: "Administrador",
+    })
+  )
   return await fetch(url, {
     method: "POST",
     headers: {
       "accept": "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      id: "0",
+    body: JSON.stringify({ 
+      id: 0,
       nombre: nombre,
       email: email,
       password: password,
-      rol: "Administrador",
+      rol: "Administrador"
     }),
   });
 }

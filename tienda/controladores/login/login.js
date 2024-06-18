@@ -145,11 +145,9 @@ async function registrarUsuario(e) {
     /* 3-4-5 */
     if (inputPassword.value === inputRepetirPass.value) {
         await usuariosServices.crear(
-            0,
             inputNombre.value,
             inputEmail.value,
             inputPassword.value,
-            "Administrador"
         );
         mostrarMensaje("Email Registrado");
         window.location.href = "#login";

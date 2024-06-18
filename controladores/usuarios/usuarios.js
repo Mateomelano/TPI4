@@ -21,7 +21,7 @@ const htmlUsuarios =
            <tr>
            <th># </th>
            <th>Nombre</th>
-           <th>Correo</th>
+           <th>Email</th>
            <th>Rol</th>
            </tr>
        </thead>
@@ -104,7 +104,7 @@ function llenarTabla(res){
         columns: [
             { data: 'id' },    
             { data: 'nombre' },
-            { data: 'correo' },
+            { data: 'email' },
             { data: 'action', "orderable":false }
             
         ],
