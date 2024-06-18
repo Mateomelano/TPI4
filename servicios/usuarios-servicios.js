@@ -14,7 +14,8 @@ async function listar(id) {
 }
 
 // Función para crear un nuevo usuario
-async function crear(nombre, email, password) {
+async function crear(nombre, email, password, rol) {
+  if (rol === undefined) rol = "Cliente";
   console.log(
     JSON.stringify({
       id: 0,
@@ -35,13 +36,14 @@ async function crear(nombre, email, password) {
       nombre: nombre,
       email: email,
       password: password,
-      rol: "Administrador"
+      rol: rol
     }),
   });
 }
 
 // Función para editar un usuario existente
 async function editar(id, nombre, email, password, rol) {
+  if (rol === undefined) rol = "Cliente";
   let urlPut = `${url}/${id}`;
   return await fetch(urlPut, {
     method: "PUT",

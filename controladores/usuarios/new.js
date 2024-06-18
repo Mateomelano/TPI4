@@ -76,6 +76,28 @@ const htmlAmUsuarios = `
 
 				</div>
 
+                <!--=====================================
+                Rol
+                ======================================-->
+
+				<div class="form-group mt-2">
+					
+					<label>Rol</label>
+
+					<input 
+					type="text" 
+					class="form-control"
+					onchange="validateJS(event,'rol')"
+					name="rol"
+                    id="usuarioRol" 
+					required
+					>
+
+					<div class="valid-feedback">Valid.</div>
+            		<div class="invalid-feedback">Please fill out this field.</div>
+
+				</div>
+
 			</div>
 		
 
@@ -106,6 +128,7 @@ var formulario='';
 var txtNombre='';
 var txtEmail='';
 var txtPass='';
+var txtRol='';
 var idUsuario;
 
 export async function newRegister(){
@@ -135,6 +158,7 @@ export async function editRegister(id){
     txtNombre.value= usuario.nombre;
     txtCorreo.value= usuario.email;
     txtPass.value= usuario.password;
+    txtRol.value= usuario.rol;
 }
 
 function crearFormulario(){
@@ -153,6 +177,7 @@ function crearFormulario(){
     txtNombre= d.getElementById('usuarioNombre');
     txtEmail= d.getElementById('usuarioEmail');
     txtPass= d.getElementById('usuarioPassword');
+    txtRol= d.getElementById('usuarioRol');
 
 }
 
@@ -163,9 +188,10 @@ function guardar(e) {
     var nombre = txtNombre.value;
     var email = txtEmail.value;
     var password = txtPass.value;
+    var rol = txtRol.value;
 
     // Llamar al servicio para crear un usuario
-    usuariosServices.crear(nombre, email, password)
+    usuariosServices.crear(nombre, email, password, rol)
         .then(respuesta => {
             // Limpiar el formulario después de éxito
             formulario.reset();
@@ -183,11 +209,12 @@ function modificar(e) {
 
     // Obtener los valores de los campos esenciales
     var nombre = txtNombre.value;
-    var correo = txtCorreo.value;
+    var email = txtEmail.value;
     var password = txtPass.value;
+    var rol = txtRol.value;
 
     // Llamar al servicio para editar el usuario
-    usuariosServices.editar(idUsuario, nombre, correo, password)
+    usuariosServices.editar(idUsuario, nombre, email, password, rol)
         .then(respuesta => {
             // Limpiar el formulario después de éxito
             formulario.reset();

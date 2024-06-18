@@ -53,7 +53,6 @@ def update_usuarios(id: int, Usuarios: Usuarios)-> dict:
     UsuariosService(db).update_usuario(id, Usuarios)
     return JSONResponse(status_code=200, content={"message": "Se ha modificado el usuario"})
 
-
 @usuarios_router.delete('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200)
 def delete_usuarios(id: int)-> dict:
     db = Session()

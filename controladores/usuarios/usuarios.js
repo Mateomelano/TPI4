@@ -23,6 +23,7 @@ const htmlUsuarios =
            <th>Nombre</th>
            <th>Email</th>
            <th>Rol</th>
+           <th>Acciones</th>
            </tr>
        </thead>
    
@@ -105,6 +106,7 @@ function llenarTabla(res){
             { data: 'id' },    
             { data: 'nombre' },
             { data: 'email' },
+            { data: 'rol' },
             { data: 'action', "orderable":false }
             
         ],

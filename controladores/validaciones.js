@@ -28,7 +28,7 @@ function validateJS(event, type){
 
   if(type == "regex") pattern = /^[-\\(\\)\\=\\%\\&\\$\\;\\_\\*\\"\\#\\?\\¿\\!\\¡\\:\\,\\.\\0-9a-zA-ZñÑáéíóúÁÉÍÓÚ ]{1,}$/;
 
-  if(type == "phone") pattern = /^[-\\(\\)\\0-9 ]{1,}$/;
+  if(type == "rol") pattern = /^(administrador|cliente)$/;
 
   
   if(!pattern.test(event.target.value)){
