@@ -8,7 +8,7 @@ class Usuarios(Base):
     nombre = Column(String(16), nullable=False)
     email = Column(String(25), unique=True, nullable=False, index=True)
     password = Column(String(25), nullable=False)
-    rol = Column(String(10), nullable=False)
+    rol = Column(String(20), nullable=False)
 
     reservas = relationship("Reserva", back_populates="usuario")  # Corrected: Use "usuario" class
 

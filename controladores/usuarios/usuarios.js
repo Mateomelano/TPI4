@@ -20,11 +20,9 @@ const htmlUsuarios =
        <thead>
            <tr>
            <th># </th>
-           <th>Apellido</th>
            <th>Nombre</th>
            <th>Correo</th>
-           <th>Ciudad</th>
-           <th>Acciones</th>
+           <th>Rol</th>
            </tr>
        </thead>
    
@@ -105,10 +103,8 @@ function llenarTabla(res){
         data : res,
         columns: [
             { data: 'id' },    
-            { data: 'apellido' },
             { data: 'nombre' },
             { data: 'correo' },
-            { data: 'ciudad' },
             { data: 'action', "orderable":false }
             
         ],

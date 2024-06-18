@@ -13,8 +13,8 @@ from schemas.usuarios import Usuarios
 usuarios_router = APIRouter()
 
 
-@usuarios_router.get('/Usuarios', tags=['Usuarios'], response_model=List[Usuarios], status_code=200)
-def get_usuarioss() -> List[Usuarios]:
+@usuarios_router.get('/usuarios', tags=['Usuarios'], response_model=List[Usuarios], status_code=200)
+def get_usuarios() -> List[Usuarios]:
     db = Session()
     result = UsuariosService(db).get_usuarios()
     return JSONResponse(status_code=200, content=jsonable_encoder(result))

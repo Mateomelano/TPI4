@@ -1,87 +1,63 @@
-const url = "https://655e7364879575426b438a93.mockapi.io/usuarios";
+// URL base de la API REST de usuarios
+const url = "http://127.0.0.1:8000/usuarios";
 
-//API-REST USUARIOS//
+// Función para listar usuarios
 
 async function listar(id) {
   let cadUrl;
-  if (isNaN(id)) cadUrl = url;
-  else cadUrl = url + "/" + id;
+  if (isNaN(id)) 
+    cadUrl = url;
+  else
+    cadUrl = `${url}/${id}`;
+  console.log(cadUrl);
   return await fetch(cadUrl).then((respuesta) => respuesta.json());
 }
 
-async function crear(
-  apellido,
-  nombre,
-  correo,
-  password,
-  avatar,
-  pais,
-  ciudad,
-  direccion,
-  telefono,
-  role = "admin"
-) {
+// Función para crear un nuevo usuario
+async function crear(nombre, email, password) {
   return await fetch(url, {
     method: "POST",
     headers: {
+      "accept": "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      apellido: apellido,
+      id: "0",
       nombre: nombre,
-      correo: correo,
+      email: email,
       password: password,
-      avatar: avatar,
-      pais: pais,
-      ciudad: ciudad,
-      direccion: direccion,
-      telefono: telefono,
-      role: role,
+      rol: "Administrador",
     }),
   });
 }
 
-async function editar(
-  id,
-  apellido,
-  nombre,
-  correo,
-  password,
-  avatar,
-  pais,
-  ciudad,
-  direccion,
-  telefono,
-  role = "admin"
-) {
-  let urlPut = url + "/" + id;
+// Función para editar un usuario existente
+async function editar(id, nombre, email, password, rol) {
+  let urlPut = `${url}/${id}`;
   return await fetch(urlPut, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      apellido: apellido,
+      id: id,
       nombre: nombre,
-      correo: correo,
+      email: email,
       password: password,
-      avatar: avatar,
-      pais: pais,
-      ciudad: ciudad,
-      direccion: direccion,
-      telefono: telefono,
-      role: role,
+      rol: rol,
     }),
   });
 }
 
+// Función para borrar un usuario
 async function borrar(id) {
-  let urlPut = url + "/" + id;
-  return await fetch(urlPut, {
+  let urlDelete = `${url}/${id}`;
+  return await fetch(urlDelete, {
     method: "DELETE",
   });
 }
 
+// Objeto que exporta las funciones de servicios de usuarios
 export const usuariosServices = {
   listar,
   crear,

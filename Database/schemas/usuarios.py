@@ -7,7 +7,7 @@ class Usuarios(BaseModel):
     nombre: str = Field(min_length=5, max_length=20)
     email: EmailStr
     password: str = Field(min_length=8)
-    rol: str
+    rol: str = Field(max_length=20)
     @field_validator('rol')
     def validate_rol(cls, roll):
         if roll not in ["Cliente", "Administrador"]:
