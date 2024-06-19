@@ -13,14 +13,14 @@ from schemas.usuarios import Usuarios
 usuarios_router = APIRouter()
 
 
-@usuarios_router.get('/usuarios', tags=['Usuarios'], response_model=List[Usuarios], status_code=200)
+@usuarios_router.get('/usuarios', tags=['Usuarios'], response_model=List[Usuarios], status_code=200, dependencies=[Depends(JWTBearer())]) 
 def get_usuarios() -> List[Usuarios]:
     db = Session()
     result = UsuariosService(db).get_usuarios()
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
 
-@usuarios_router.get('/usuarios/{id}', tags=['Usuarios'], response_model=Usuarios)
+@usuarios_router.get('/usuarios/{id}', tags=['Usuarios'], response_model=Usuarios, status_code=200, dependencies=[Depends(JWTBearer())])
 def get_usuarios(id: int = Path(ge=1, le=2000)) -> Usuarios:
     db = Session()
     result = UsuariosService(db).get_usuarios_id(id)
@@ -29,7 +29,7 @@ def get_usuarios(id: int = Path(ge=1, le=2000)) -> Usuarios:
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
 
-@usuarios_router.get('/usuarios/', tags=['Usuarios'], response_model=List[Usuarios])
+@usuarios_router.get('/usuarios/', tags=['Usuarios'], response_model=List[Usuarios], status_code=200, dependencies=[Depends(JWTBearer())])
 def get_usuarios_by_mail(email: str = Query(min_length=5, max_length=35)) -> List[Usuarios]:
     db = Session()
     result = UsuariosService(db).get_usuarios_by_mail(email)
@@ -43,7 +43,7 @@ def create_usuarios(usuario: Usuarios) -> dict:
     return JSONResponse(status_code=201, content={"message": "Se ha registrado el usuario"})
 
 
-@usuarios_router.put('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200)
+@usuarios_router.put('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200, dependencies=[Depends(JWTBearer())])
 def update_usuarios(id: int, Usuarios: Usuarios)-> dict:
     db = Session()
     result = UsuariosService(db).get_usuarios(id)
@@ -53,7 +53,7 @@ def update_usuarios(id: int, Usuarios: Usuarios)-> dict:
     UsuariosService(db).update_usuario(id, Usuarios)
     return JSONResponse(status_code=200, content={"message": "Se ha modificado el usuario"})
 
-@usuarios_router.delete('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200)
+@usuarios_router.delete('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200, dependencies=[Depends(JWTBearer())])
 def delete_usuarios(id: int)-> dict:
     db = Session()
     result: UsuarioModel = db.query(UsuarioModel).filter(UsuarioModel.id == id).first()

@@ -3,9 +3,9 @@ Función para validar data repetida
 =============================================*/
 function validateRepeat(event, type){
 
-  // event.target.value = "";
-  // event.target.parentNode.classList.add('was-validated'); 
-  //  event.target.parentNode.querySelector(".invalid-feedback").innerHTML = "Email repetido";
+  event.target.value = "";
+  event.target.parentNode.classList.add('was-validated'); 
+  event.target.parentNode.querySelector(".invalid-feedback").innerHTML = "Email repetido";
 
 
 }
@@ -14,71 +14,40 @@ function validateRepeat(event, type){
 /*=============================================
 Función para validar formulario
 =============================================*/
-function validateJS(event, type){
-
+function validateJS(event, type) {
   var pattern;
+  var errorMessage = "Campo no válido";
 
-  if(type == "text") pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/;
-
-  if(type == "t&n") pattern = /^[A-Za-z0-9]{1,}$/;
-
-  if(type == "email") pattern = /^[.a-zA-Z0-9_]+([.][.a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/;
-
-  if(type == "pass") pattern = /^[#\\=\\$\\;\\*\\_\\?\\¿\\!\\¡\\:\\.\\,\\0-9a-zA-Z]{1,}$/;
-
-  if(type == "regex") pattern = /^[-\\(\\)\\=\\%\\&\\$\\;\\_\\*\\"\\#\\?\\¿\\!\\¡\\:\\,\\.\\0-9a-zA-ZñÑáéíóúÁÉÍÓÚ ]{1,}$/;
-
-  if(type == "rol") pattern = /^(administrador|cliente)$/;
-
-  
-  if(!pattern.test(event.target.value)){
-
-   event.target.parentNode.classList.add('was-validated'); 
-   event.target.parentNode.querySelector(".invalid-feedback").innerHTML = "Campo no válido";
-   
+  // Definir patrón y mensaje de error según el tipo de campo
+  switch (type) {
+    case "text":
+      pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/;
+      errorMessage = "Ingrese solo letras y espacios";
+      break;
+    case "email":
+      pattern = /^[.a-zA-Z0-9_]+([.][.a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,}$/;
+      errorMessage = "Ingrese un correo electrónico válido";
+      break;
+    case "pass":
+      pattern = /^.{8,}$/; // Al menos 8 caracteres de cualquier tipo
+      errorMessage = "La contraseña debe tener al menos 8 caracteres";
+      break;
+    case "rol":
+      pattern = /^(Administrador|Cliente)$/;
+      errorMessage = "Seleccione un rol válido (Administrador o Cliente)";
+      break;
+    default:
+      // Si el tipo no coincide con ninguno de los anteriores, salir sin hacer nada
+      return;
   }
 
+  // Realizar la validación
+  if (!pattern.test(event.target.value)) {
+    event.target.value = ""; // Limpiar el valor del campo
+    event.target.parentNode.classList.add('was-validated');
+    event.target.parentNode.querySelector(".invalid-feedback").innerHTML = errorMessage;
+  }
 }
-
-/*=============================================
-Validamos imagen
-=============================================*/
-
-function validateImageJS(event, input){
-  
-  var image = event.target.files[0];
-
-  if(image["type"] !== "image/png" && image["type"] !== "image/jpeg" && image["type"] !== "image/gif"  ){
-
-    alert( "La imagen dede ser JPG, PNG o GIF.");
-
-    return;
-
-  }
-
-  else if(image["size"] > 30000){
-
-    alert( "La imagen no puede pesar mas de 30KB");
-
-    return;
-
-  }else{
-
-    var data = new FileReader();
-    data.readAsDataURL(image);
-
-    data.onload = function () {
-      if (data.readyState === 2) {
-        let contenido = data.result;
-        document.querySelector ('.'+ input).setAttribute("src", contenido);
-      }
-
-    }
-
-  }
-
-}
-
 /*=============================================
 Función para recordar credenciales de ingreso
 =============================================*/

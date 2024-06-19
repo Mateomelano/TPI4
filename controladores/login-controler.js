@@ -71,11 +71,15 @@ async function usuarioExiste() {
         .then(respuesta => {
             respuesta.forEach(usuario => {
                 
-                if (usuario.email === inputEmail.value && usuario.password === inputPassword.value) {
-                    usuarioId = usuario.id;
-                    usuarioActivo = usuario.nombre + ' ' + usuario.apellido;
-                    usuarioFoto = usuario.avatar;
-                    return existeUsuario = true;
+                if (usuario.email === inputEmail.value && usuario.password === inputPassword.value ) {
+                    if (usuario.rol === 'Administrador') {
+                        usuarioId = usuario.id;
+                        usuarioActivo = usuario.nombre;
+                        usuarioFoto = usuario.avatar;
+                        return existeUsuario = true;
+                    } else {
+                        mostrarMensaje('Usuario no autorizado');
+                    }
                 } else {
                     return;
                 }
@@ -84,7 +88,7 @@ async function usuarioExiste() {
         .catch(error => console.log(error));
 
     if (!existeUsuario) {
-        mostrarMensaje('Email o contraseña incorrecto, intenta nuevamente');
+        mostrarMensaje('Error al autenticar usuario');
     } else {
         //ocultar login
         frmLogin.outerHTML= '';

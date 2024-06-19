@@ -43,7 +43,7 @@ const htmlAmUsuarios = `
 					<input 
 					type="email" 
 					class="form-control"
-					onchange="validateRepeat(event,'email')"
+					onchange="validateJS(event,'email')"
 					name="email"
                     id="usuarioEmail"
 					required>
@@ -84,14 +84,17 @@ const htmlAmUsuarios = `
 					
 					<label>Rol</label>
 
-					<input 
-					type="text" 
-					class="form-control"
-					onchange="validateJS(event,'rol')"
-					name="rol"
-                    id="usuarioRol" 
-					required
-					>
+					<select 
+                        class="form-control"
+                        onchange="validateJS(event,'rol')"
+                        name="rol"
+                        id="usuarioRol"
+                        required
+                    >
+                        <option value="">Seleccione un rol</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Cliente">Cliente</option>
+                    </select>
 
 					<div class="valid-feedback">Valid.</div>
             		<div class="invalid-feedback">Please fill out this field.</div>
@@ -201,6 +204,7 @@ function guardar(e) {
         .catch(error => {
             // Manejar errores mostrando en la consola
             console.error("Error al crear usuario:", error);
+            alert(error);
         });
 }
 
@@ -224,5 +228,6 @@ function modificar(e) {
         .catch(error => {
             // Manejar errores mostrando en la consola
             console.error("Error al modificar usuario:", error);
+            alert(error);
         });
 }

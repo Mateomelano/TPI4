@@ -100,61 +100,68 @@ function crearFormulario(registrar) {
 }
 
 async function ingresar(e) {
-    /**
-     * 1- Esta función tiene como objetivo controlar que el texto en inputEmail e inputPassword se corresponda con alguna cuenta almacenada
-     *    en el REST-API.
-     * 2- Para ello en primera instancia deberá cancelar el comportamiento por defecto del envento recibido . Para ello deberá
-     *    tomar el parámetro evento ( e ) y ejecutar el método preventDefault().
-     * 3- Luego se deberá llamar la función llamada usuarioExiste. La misma devuelve un valor falso si el usuario no existe y el id del
-     *    usuario en el caso que la cuenta sea válida.
-     * 4- Através de una estructura de desición se deberá, en el caso de que el usuario sea válido :
-     *     a- Llamar a la función setUsuarioAutenticado (usuariosServices) pasandole como parámetro el valor true y el id del usuario. De esta forma dicha
-     *        función guardará estos datos en el sessionStorage del navegado, para poder ser consultados en el momento de la compra.
-     *     b- Llamar a la función mostrarUsuario, pasandole como parámetro el texto del email de la cuenta.
-     * 5- En el caso de que el usuario no sea válido se deberá mostrar una alerta con el texto 'Email o contraseña incorrecto, intenta nuevamente'.
-     */
-
-    /* 2 */
-    e.preventDefault();
-
-    const idUsuario = await usuarioExiste();
-
-    if (idUsuario) {
+    e.preventDefault(); // Cancela el comportamiento por defecto del evento
+  
+    try {
+      const idUsuario = await usuarioExiste();
+  
+      if (idUsuario) {
         setUsuarioAutenticado(true, idUsuario);
         mostrarUsuario(inputEmail.value);
-        window.location.href = "#";
-    } else {
+        window.location.href = "#"; // Redirige a la página principal o a la que corresponda después del login
+      } else {
         mostrarMensaje('Email o contraseña incorrecto, intenta nuevamente');
+      }
+    } catch (error) {
+      console.error('Error al verificar usuario:', error);
+      mostrarMensaje('Ocurrió un error al intentar ingresar. Intenta nuevamente más tarde.');
     }
-}
+  }
+  
 
-async function registrarUsuario(e) {
-    /**
-     * 1- Esta función tiene como objetivo controlar que el texto en inputPassword sea exactamente igual al texto ingresado en
-     *    inputRepetirPass y luego registrar la cuenta en el REST-API.
-     * 2- Para ello en primera instancia deberá cancelar el comportamiento por defecto del envento recibido . Para ello deberá
-     *    tomar el parámetro evento ( e ) y ejecutar el método preventDefault().
-     * 3- Luego se comparará con una estructura de decisión si los textos ingresados en los controles mencionados son exactamente iguales.
-     * 4- En caso afirmativo utilizando usuariosServices mediante el método crear, dará de alta el nuevo usuario.
-     * 5- Deberá mostrar una alerta con la leyenda "Email registrado" y cambiará el valor del objeto window.location.href a "#login", para que
-     *    se muestre la pantalla de login.
-     * 5- En caso negativo o falso mostrará una alerta indicando que las contraseñas ingresadas no son iguales.
-     */
-    /* 2 */
-    e.preventDefault();
-    /* 3-4-5 */
-    if (inputPassword.value === inputRepetirPass.value) {
-        await usuariosServices.crear(
-            inputNombre.value,
-            inputEmail.value,
-            inputPassword.value,
-        );
-        mostrarMensaje("Email Registrado");
-        window.location.href = "#login";
-    } else {
-        mostrarMensaje("Las contraseñas ingresadas no son iguales.");
+  async function registrarUsuario(e) {
+    e.preventDefault(); // Cancela el comportamiento por defecto del evento
+  
+    // Obtener valores de los campos
+    const nombre = inputNombre.value.trim();
+    const email = inputEmail.value.trim();
+    const password = inputPassword.value.trim();
+    const repetirPassword = inputRepetirPass.value.trim();
+  
+    // Validación: Contraseñas coinciden y tienen al menos 8 caracteres
+    if (password !== repetirPassword) {
+      mostrarMensaje("Las contraseñas ingresadas no son iguales.");
+      return;
     }
-}
+  
+    if (password.length < 8) {
+      mostrarMensaje("La contraseña debe tener al menos 8 caracteres.");
+      return;
+    }
+  
+    // Validación de formato de correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      mostrarMensaje("El correo electrónico ingresado no tiene un formato válido.");
+      return;
+    }
+  
+    try {
+      // Llamar al servicio para crear un nuevo usuario
+      await usuariosServices.crear(nombre, email, password);
+  
+      // Mostrar mensaje de éxito y redirigir a la pantalla de login
+      mostrarMensaje("Email Registrado. Por favor, inicia sesión.");
+      window.location.href = "#login";
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      mostrarMensaje('Ocurrió un error al intentar registrar el usuario. Intenta nuevamente más tarde.');
+    }
+  }
+  
+  
+
+
 
 async function usuarioExiste() {
     /**
