@@ -159,7 +159,7 @@ export async function editRegister(id){
 
     
     txtNombre.value= usuario.nombre;
-    txtCorreo.value= usuario.email;
+    txtEmail.value= usuario.email;
     txtPass.value= usuario.password;
     txtRol.value= usuario.rol;
 }
@@ -186,48 +186,56 @@ function crearFormulario(){
 
 function guardar(e) {
     e.preventDefault();
-
+  
     // Obtener los valores de los campos de nombre, email y contraseña
     var nombre = txtNombre.value;
     var email = txtEmail.value;
     var password = txtPass.value;
     var rol = txtRol.value;
-
+  
     // Llamar al servicio para crear un usuario
     usuariosServices.crear(nombre, email, password, rol)
-        .then(respuesta => {
-            // Limpiar el formulario después de éxito
-            formulario.reset();
-            // Redirigir a la página de usuarios
-            window.location.href = "#/usuarios";
-        })
-        .catch(error => {
-            // Manejar errores mostrando en la consola
-            console.error("Error al crear usuario:", error);
-            alert(error);
-        });
-}
+      .then(respuesta => {
+        // Limpiar el formulario después de éxito
+        formulario.reset();
+        // Redirigir a la página de usuarios
+        window.location.href = "#/usuarios";
+        Swal.fire({
+            icon: "success",
+            text: respuesta.message,
+          });
+      })
+      .catch(error => {
+        // Manejar errores mostrando en la consola
+        console.error("Error al crear usuario:", error.message);
+        alert("Error al crear usuario: " + error.message);
+      });
+  }
 
-function modificar(e) {
+  function modificar(e) {
     e.preventDefault();
-
+  
     // Obtener los valores de los campos esenciales
     var nombre = txtNombre.value;
     var email = txtEmail.value;
     var password = txtPass.value;
     var rol = txtRol.value;
-
+  
     // Llamar al servicio para editar el usuario
     usuariosServices.editar(idUsuario, nombre, email, password, rol)
-        .then(respuesta => {
-            // Limpiar el formulario después de éxito
-            formulario.reset();
-            // Redirigir a la página de usuarios
-            window.location.href = "#/usuarios";
-        })
-        .catch(error => {
-            // Manejar errores mostrando en la consola
-            console.error("Error al modificar usuario:", error);
-            alert(error);
-        });
-}
+      .then(respuesta => {
+        // Limpiar el formulario después de éxito
+        formulario.reset();
+        // Redirigir a la página de usuarios
+        window.location.href = "#/usuarios";
+        Swal.fire({
+            icon: "success",
+            text: respuesta.message,
+          });
+      })
+      .catch(error => {
+        // Manejar errores mostrando en la consola
+        console.error("Error al modificar usuario:", error.message);
+        alert("Error al modificar usuario: " + error.message);
+      });
+  }

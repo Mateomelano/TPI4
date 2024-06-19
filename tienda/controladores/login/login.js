@@ -107,7 +107,7 @@ async function ingresar(e) {
   
       if (idUsuario) {
         setUsuarioAutenticado(true, idUsuario);
-        mostrarUsuario(inputEmail.value);
+        mostrarUsuario(inputNombre.value);
         window.location.href = "#"; // Redirige a la página principal o a la que corresponda después del login
       } else {
         mostrarMensaje('Email o contraseña incorrecto, intenta nuevamente');
