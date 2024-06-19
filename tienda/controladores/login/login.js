@@ -123,7 +123,7 @@ async function ingresar(e) {
     e.preventDefault(); // Cancela el comportamiento por defecto del evento
   
     // Obtener valores de los campos
-    const nombre = inputNombre.value.trim();
+    const nombre = inputNombre.value.trim(); // Asumiendo que el nombre no es obligatorio en el registro
     const email = inputEmail.value.trim();
     const password = inputPassword.value.trim();
     const repetirPassword = inputRepetirPass.value.trim();
@@ -147,6 +147,16 @@ async function ingresar(e) {
     }
   
     try {
+      // Obtener la lista de usuarios
+      const usuarios = await usuariosServices.listar();
+  
+      // Verificar si ya existe un usuario con el mismo email
+      const usuarioExistente = usuarios.find(usuario => usuario.email === email);
+      if (usuarioExistente) {
+        mostrarMensaje("Ya existe un usuario registrado con este correo electrónico.");
+        return;
+      }
+  
       // Llamar al servicio para crear un nuevo usuario
       await usuariosServices.crear(nombre, email, password);
   
@@ -155,9 +165,10 @@ async function ingresar(e) {
       window.location.href = "#login";
     } catch (error) {
       console.error('Error al registrar usuario:', error);
-      mostrarMensaje('Ocurrió un error al intentar registrar el usuario. Intenta nuevamente más tarde.');
+      mostrarMensaje(error.message);
     }
   }
+  
   
   
 
@@ -218,7 +229,9 @@ function mostrarMensaje(msj) {
   /**
    * Esta función muestra una alerta con el texto recibido en el parámetro msj.
    */
-  alert(msj);
+  Swal.fire({
+    text: msj,
+  });
 }
 
 export function setUsuarioAutenticado(booleano, idUsuario) {
