@@ -4,7 +4,7 @@ import { Productos } from "./productos/productos.js";
 import { Usuarios } from "./usuarios/usuarios.js";
 import { Ventas } from "./ventas/ventas.js";
 import { Destinos } from "./destinos/destinos.js";
-
+import { Paquetes } from "./paquetes/paquetes.js";
 
 
 
@@ -29,6 +29,8 @@ export function Router(){
         Home();
     }else if(hash==='#/destinos'){
         Destinos();
+    }else if(hash==='#/paquetes'){
+        Paquetes();
     }else if(hash==='#/productos'){
         Productos();
     }else if(hash==='#/ventas'){
