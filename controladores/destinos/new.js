@@ -21,7 +21,7 @@ const htmlAmdestinos = `
                     type="text" 
                     class="form-control"
                     pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}"
-                    onchange="validateJS(event,'text')"
+                    onchange="validateJS(event,'nombre')"
                     name="nombre"
                     id="destinoNombre"
                     required>
@@ -42,7 +42,7 @@ const htmlAmdestinos = `
                     <input 
                     type="text" 
                     class="form-control"
-                    onchange="validateJS(event,'text')"
+                    onchange="validateJS(event,'descripcion')"
                     name="descripcion"
                     id="destinoDescripcion"
                     required>
@@ -63,10 +63,11 @@ const htmlAmdestinos = `
                     <input 
                     type="text" 
                     class="form-control"
-                    onchange="validateJS(event,'text')"
+                    onchange="validateJS(event,'pais')"
                     name="pais"
                     id="destinoPais"
                     required>
+
 
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>

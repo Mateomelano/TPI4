@@ -20,6 +20,18 @@ function validateJS(event, type) {
 
   // Definir patrón y mensaje de error según el tipo de campo
   switch (type) {
+    case "nombre":
+      pattern = /^.{3,50}$/; // Entre 10 y 35 caracteres de cualquier tipo
+      errorMessage = "El nombre debe tener entre 3 y 50 caracteres";
+      break;
+    case "descripcion":
+      pattern = /^.{10,35}$/; // Entre 10 y 35 caracteres de cualquier tipo
+      errorMessage = "La descripcion debe tener entre 10 y 35 caracteres";
+      break;
+      case "pais":
+        pattern = /^.{2,50}$/; // Entre 10 y 35 caracteres de cualquier tipo
+        errorMessage = "El nomobre debe tener entre 2 y 50 caracteres";
+        break;
     case "text":
       pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}$/;
       errorMessage = "Ingrese solo letras y espacios";

@@ -88,7 +88,7 @@ async function borrar(){
     if(borrar===1){
         await destinosServices.borrar(id);
     }
-    window.location.href("#/destinos");
+    window.location.href = "#/destinos"; 
 }
 
 function llenarTabla(res){

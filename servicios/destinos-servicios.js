@@ -42,9 +42,7 @@ async function crear(nombre, descripcion, pais) { //para crear un destino pide e
 }
 
 async function editar(id, nombre, descripcion, pais) {
-    if (isNaN(id)) {
-        id=0
-    }
+
     if (!token) {
         token=await tokenServices.getToken(); // pide el token si no existe. PEDIIIILO
     }

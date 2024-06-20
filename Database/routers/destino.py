@@ -33,7 +33,7 @@ def get_destino(id: int = Path(ge=1, le=2000)) -> Destino:
 def create_destino(destino: Destino) -> dict:
     db = Session()
     DestinoService(db).create_destino(destino)
-    return JSONResponse(status_code=201, content={"message": "Se ha registrado la Categoria"})
+    return JSONResponse(status_code=201, content={"message": "Se ha registrado el Destino"})
 
 
 @destino_router.put('/destino/{id}', tags=['Destino'], response_model=dict, status_code=200)
@@ -44,7 +44,7 @@ def update_destino(id: int, destino: Destino)-> dict:
         return JSONResponse(status_code=404, content={'message': "No encontrado"})
 
     DestinoService(db).update_destino(id, destino)
-    return JSONResponse(status_code=200, content={"message": "Se ha modificado la categoria"})
+    return JSONResponse(status_code=200, content={"message": "Se ha modificado el Destino"})
 
 
 @destino_router.delete('/destino/{id}', tags=['Destino'], response_model=dict, status_code=200)
@@ -54,4 +54,4 @@ def delete_destino(id: int)-> dict:
     if not result:
         return JSONResponse(status_code=404, content={"message": "No se encontró"})
     DestinoService(db).delete_destino(id)
-    return JSONResponse(status_code=200, content={"message": "Se ha eliminado la categoria"})
+    return JSONResponse(status_code=200, content={"message": "Se ha eliminado el Destino"})

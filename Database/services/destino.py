@@ -22,8 +22,8 @@ class DestinoService():
         return
     def update_destino(self, id: int, data: Destino):
         destino = self.db.query(DestinoModel).filter(DestinoModel.id == id).first()
-        destino.name = data.name
-        destino.description = data.description
+        destino.nombre = data.nombre
+        destino.descripcion = data.descripcion
         destino.pais = data.pais
         self.db.commit()
         return
