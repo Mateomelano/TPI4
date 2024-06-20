@@ -36,6 +36,10 @@ function validateJS(event, type) {
       pattern = /^(Administrador|Cliente)$/;
       errorMessage = "Seleccione un rol válido (Administrador o Cliente)";
       break;
+    case "number":
+      pattern = /^[0-9]+$/;
+      errorMessage = "Ingrese solo números";
+      break;
     default:
       // Si el tipo no coincide con ninguno de los anteriores, salir sin hacer nada
       return;

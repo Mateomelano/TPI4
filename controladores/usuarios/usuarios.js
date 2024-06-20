@@ -76,7 +76,7 @@ async function borrar(){
     let id = this.getAttribute('data-idUsuario') ;
     let borrar=0;
   await Swal.fire({
-        title: 'Está seguro que desea eliminar el registro?',
+        title: 'Está seguro que desea eliminar el usuario?',
         showDenyButton: true,
         confirmButtonText: 'Si',
         denyButtonText: `Cancelar`,

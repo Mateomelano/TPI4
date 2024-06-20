@@ -151,10 +151,12 @@ export async function editRegister(id){
     idUsuario = id;
     d.querySelector('.contenidoTitulo').innerHTML = 'Editar Usuario';
     d.querySelector('.contenidoTituloSec').innerHTML += 'Editar';
+
     crearFormulario();
 
     formulario = d.querySelector(".frmAmUsuario")
     formulario.addEventListener("submit", modificar);
+
     let usuario =  await usuariosServices.listar(id);
 
     

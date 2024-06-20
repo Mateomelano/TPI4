@@ -1,6 +1,8 @@
 import { usuariosServices } from "../../servicios/usuarios-servicios.js";
 import { ventasServices } from "../../servicios/ventas-servicios.js";
 import { productosServices } from "../../servicios/productos-servicios.js";
+import { destinosServices } from "../../servicios/destinos-servicios.js";
+
 const htmlHome = 
 ` <div class="row" >
     <div class="col-lg-3 col-6">
@@ -47,6 +49,22 @@ const htmlHome =
             <a href="#/usuarios" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+            <h3 id="indDestinos">44</h3>
+
+            <p>Destinos</p>
+            </div>
+            <div class="icon">
+            <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#/destinos" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
     <!-- ./col -->
     <div class="col-lg-3 col-6">
         <!-- small box -->
@@ -81,6 +99,8 @@ export async function Home(){
     let indSinDespachar = d.getElementById ("indSindespachar");
     let indUsuarios = d.getElementById ("indUsuarios");
     let indProductos = d.getElementById ("indProductos");
+    let indDestinos = d.getElementById ("indDestinos");
+    //CANTIDAD DE USUARIOS
 
     res = await usuariosServices.listar();
     //CANTIDAD DE USUARIOS
@@ -97,5 +117,8 @@ export async function Home(){
     //CANTIDAD DE PRODUCTOS
     res= await productosServices.listar() ;
     indProductos.innerHTML = res.length;
+
+    res = await destinosServices.listar();
+    indDestinos.innerHTML = res.length;
 
 }

@@ -13,7 +13,7 @@ from schemas.reserva import Reserva
 reserva_router = APIRouter()
 
 
-@reserva_router.get('/reserva', tags=['Reserva'], response_model=List[Reserva], status_code=200, dependencies=[Depends(JWTBearer())])
+@reserva_router.get('/reserva', tags=['Reserva'], response_model=List[Reserva], status_code=200)
 def get_reserva() -> List[Reserva]:
     db = Session()
     result = ReservaService(db).get_reservas()
