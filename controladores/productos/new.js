@@ -166,7 +166,6 @@ var txtDescripcion='';
 var fileFoto='';
 var selCategoria='';
 var txtPrecio='';
-
 var idProducto;
 
 export async function newRegister(){

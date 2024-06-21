@@ -1,4 +1,5 @@
 import { paquetesServices } from "../../servicios/paquetes-servicios.js";
+import { destinosServices } from "../../servicios/destinos-servicios.js";
 
 const htmlAmpaquetes = `
 <div class="card card-dark card-outline">
@@ -37,16 +38,12 @@ const htmlAmpaquetes = `
                 
                 <div class="form-group mt-5">
                     
-                    <label>Id_destino</label>
+                    <label>Destino</label>
 
-                    <input 
-                    type="text" 
-                    class="form-control"
-
-                    onchange="validateJS(event,'number')"
-                    name="id_destino"
-                    id="paqueteIdDestino"
-                    required>
+                    <select class="form-control select2" name="Id_destino" id="paqueteIdDestino" required>
+                      <option value="">Seleccionar Destino</option>
+                      
+                    </select>
 
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
@@ -162,7 +159,7 @@ const htmlAmpaquetes = `
 
 var formulario = "";
 var txtNombre = "";
-var txtid_destino = "";
+var selId_destino = "";
 var txtPrecio = "";
 var txtCupo = "";
 var txtFechaInicio = "";
@@ -195,14 +192,14 @@ export async function editRegister(id) {
   let paquete = await paquetesServices.listar(id);
 
   txtNombre.value = paquete.nombre;
-  txtid_destino.value = paquete.id_destino;
+  selId_destino.value = paquete.id_destino;
   txtPrecio.value = paquete.precio;
   txtCupo.value = paquete.cupo;
   txtFechaInicio.value = paquete.fecha_inicio;
   txtFechaFin.value = paquete.fecha_fin;
 }
 
-function crearFormulario() {
+async function crearFormulario() {
   let d = document;
   d.querySelector(".rutaMenu").innerHTML = "Paquetes";
   d.querySelector(".rutaMenu").setAttribute("href", "#/paquetes");
@@ -216,24 +213,36 @@ function crearFormulario() {
   cP.appendChild(script);
 
   txtNombre = d.getElementById("paqueteNombre");
-  txtid_destino = d.getElementById("paqueteIdDestino");
   txtPrecio = d.getElementById("paquetePrecio");
   txtCupo = d.getElementById("paqueteCupo");
   txtFechaInicio = d.getElementById("paqueteFechaInicio");
   txtFechaFin = d.getElementById("paqueteFechaFin");
+
+  // Cargar destinos al select
+  selId_destino = d.getElementById("paqueteIdDestino");
+  let res = await destinosServices.listar();
+  res.forEach(element => {
+    let option = document.createElement("option");
+    option.value = element.id;
+    option.text ="ID: " + element.id + " - " + element.nombre + " - " + element.pais;
+    selId_destino.appendChild(option);
+  });
 }
+
 
 function guardar(e) {
   e.preventDefault();
 
   var nombre = txtNombre.value;
-  var id_destino = txtid_destino.value;
   var precio = txtPrecio.value;
   var cupo = txtCupo.value;
   var fechaInicio = txtFechaInicio.value;
   var fechaFin = txtFechaFin.value;
+  var destino = selId_destino.options[selId_destino.selectedIndex];
 
-  paquetesServices.crear(nombre, id_destino, precio, cupo, fechaInicio, fechaFin)
+  console.log(destino)
+
+  paquetesServices.crear(nombre, destino.value, precio, cupo, fechaInicio, fechaFin)
     .then((respuesta) => {
       formulario.reset();
       window.location.hash = "#/paquetes";
@@ -256,15 +265,16 @@ function guardar(e) {
 function modificar(e) {
   e.preventDefault();
 
+  
   var nombre = txtNombre.value;
-  var id_destino = txtid_destino.value;
   var precio = txtPrecio.value;
   var cupo = txtCupo.value;
   var fechaInicio = txtFechaInicio.value;
   var fechaFin = txtFechaFin.value;
+  var destino = selId_destino.value;
 
   paquetesServices
-    .editar(idPaquete, nombre, id_destino, precio, cupo, fechaInicio, fechaFin)
+    .editar(idPaquete, nombre, destino, precio, cupo, fechaInicio, fechaFin)
     .then((respuesta) => {
       formulario.reset();
       window.location.hash = "#/paquetes";
