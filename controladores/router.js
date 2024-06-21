@@ -1,4 +1,4 @@
-import { Categorias } from "./categorias/categorias.js";
+
 import { Home } from "./home/home.js";
 import { Productos } from "./productos/productos.js";
 import { Usuarios } from "./usuarios/usuarios.js";
@@ -23,8 +23,6 @@ export function Router(){
 
     if (hash === '#/usuarios'){
         Usuarios();
-    }else if(hash==='#/categorias'){
-        Categorias();
     }else if(( hash==='#/home') || (hash==='') || (hash==='#')){
         Home();
     }else if(hash==='#/destinos'){

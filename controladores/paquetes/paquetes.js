@@ -24,6 +24,7 @@ const htmlPaquetes =
             <th>Cupo</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
+            <th>Acciones</th>
             </tr>
         </thead>
 
@@ -42,6 +43,7 @@ export async function Paquetes(){
     let cP =d.getElementById('contenidoPrincipal');
 
     res = await paquetesServices.listar();
+    console.log(res);
     res.forEach(element => {
         element.action = "<div class='btn-group'><a class='btn btn-warning btn-sm mr-1 rounded-circle btnEditarPaquete'  href='#/editPaquete' data-idPaquete='"+ element.id +"'> <i class='fas fa-pencil-alt'></i></a><a class='btn btn-danger btn-sm rounded-circle removeItem btnBorrarPaquete'href='#/delPaquete' data-idPaquete='"+ element.id +"'><i class='fas fa-trash'></i></a></div>";
     });  
@@ -88,13 +90,13 @@ async function borrar(){
         }
     })
     if(borrar===1){
-        await paquetesServices.borrar(id);
+        const borrado = await paquetesServices.borrar(id);
     }
     window.location.href = "#/paquetes"; 
 }
 
-function llenarTabla(res){
-    new DataTable('#newPaquetes', { // aca si cambias paquetesTable por newPaquetes te deja el agg pero no te muestra nada, tampoco agrega nada, cuando agrueges fijate que el id destino que le pasas tiene que coincidir con el id destino de tu base de datos
+function llenarTabla(res) {
+    new DataTable('#paquetesTable', {
         responsive: true,
         data: res,
         columns: [
@@ -105,11 +107,11 @@ function llenarTabla(res){
             { data: 'cupo' },
             { data: 'fecha_inicio' },
             { data: 'fecha_fin' },
-            { data: 'action', orderable: false}
+            { data: 'action', orderable: false },
         ],
         deferRender: true,
         retrive: true,
-        progresing: true,
+        procesing: true,
         language: {
             sProcessing:     "Procesando...",
             sLengthMenu:     "Mostrar _MENU_ registros",
@@ -133,7 +135,6 @@ function llenarTabla(res){
                 sSortAscending:  ": Activar para ordenar la columna de manera ascendente",
                 sSortDescending: ": Activar para ordenar la columna de manera descendente"
             }
-                            
-        }           
+        }
     });
 }

@@ -52,10 +52,10 @@ function validateJS(event, type) {
       pattern = /^[0-9]+$/;
       errorMessage = "Ingrese solo números";
       break;
-      case "date":
-        pattern = /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
-        errorMessage = "Fecha no válida";
-        break;
+    case "date":
+      pattern = /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
+      errorMessage = "Fecha no válida";
+      break;
     default:
       // Si el tipo no coincide con ninguno de los anteriores, salir sin hacer nada
       return;

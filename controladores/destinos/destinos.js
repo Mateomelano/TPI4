@@ -86,7 +86,13 @@ async function borrar(){
         }
     })
     if(borrar===1){
-        await destinosServices.borrar(id);
+        const borrado = await destinosServices.borrar(id);
+        Swal.fire({
+            icon: 'success',
+            title: borrado.message,
+            showConfirmButton: true,
+            timer: 1500
+        })
     }
     window.location.href = "#/destinos"; 
 }

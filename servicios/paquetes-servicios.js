@@ -5,7 +5,7 @@ let token = "";
 
 async function listar(id) {
     if (!token) {
-        token=await tokenServices.getToken(); // Obtener el token si no lo tenemos aún
+        token = await tokenServices.getToken(); // Obtener el token si no lo tenemos aún
       }
       let cadUrl;
       if (isNaN(id)) 
@@ -21,7 +21,7 @@ async function listar(id) {
       return response.json();
     }
 
-async function crear(id,nombre,destino_id, precio,cupo,fecha_inicio,fecha_fin) { //para crear un destino pide esos 3 datos sin importar el id por que es autoincremental
+async function crear(nombre,destino_id, precio,cupo,fecha_inicio,fecha_fin) { //para crear un destino pide esos 3 datos sin importar el id por que es autoincremental
     if (!token) {
         token=await tokenServices.getToken(); // pide el token si no existe. PEDIIIILO
     }
@@ -32,7 +32,7 @@ async function crear(id,nombre,destino_id, precio,cupo,fecha_inicio,fecha_fin) {
             "Content-Type": "application/json", //y el tipo de contenido
         },
         body: JSON.stringify({ // el body es donde se manda en formato json el id, nombre, etc
-            id: id,
+            id: 0,
             destino_id: destino_id,
             nombre: nombre,
             precio: precio,
@@ -71,16 +71,42 @@ async function editar(id, destino_id, nombre, precio,cupo,fecha_inicio,fecha_fin
 
 async function borrar(id) {
     if (!token) {
-        token = await tokenServices.getToken(); // pide el token si no existe. PEDIIIILO
+        token = await tokenServices.getToken(); // pide el token si no existe
     }
     const urlDelete = `${url}/${id}`;
-    const response = await fetch(urlDelete, {
-        method: "DELETE", //aca el method es DELETE por que esta borrando
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response; //rivales no, enemigos
+    try {
+        const response = await fetch(urlDelete, {
+            method: "DELETE", // el método es DELETE porque está borrando
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        // Verifica si la respuesta es exitosa
+        if (!response.ok) {
+            throw new Error('Error al borrar el elemento');
+        }
+
+        const data = await response.json(); // Asume que la respuesta es un JSON
+
+        Swal.fire({
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: true,
+            timer: 1500
+        });
+
+        return data; // Rivales no, enemigos
+    } catch (error) {
+        // Manejo de errores
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+            showConfirmButton: true
+        });
+        throw error;
+    }
 }
 
 export const paquetesServices = {

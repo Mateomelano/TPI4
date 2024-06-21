@@ -65,17 +65,44 @@ async function editar(id, nombre, descripcion, pais) {
 
 async function borrar(id) {
     if (!token) {
-        token = await tokenServices.getToken(); // pide el token si no existe. PEDIIIILO
+        token = await tokenServices.getToken(); // pide el token si no existe
     }
     const urlDelete = `${url}/${id}`;
-    const response = await fetch(urlDelete, {
-        method: "DELETE", //aca el method es DELETE por que esta borrando
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
-    return response; //rivales no, enemigos
+    try {
+        const response = await fetch(urlDelete, {
+            method: "DELETE", // el método es DELETE porque está borrando
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        // Verifica si la respuesta es exitosa
+        if (!response.ok) {
+            throw new Error('Error al borrar el elemento');
+        }
+
+        const data = await response.json(); // Asume que la respuesta es un JSON
+
+        Swal.fire({
+            icon: 'success',
+            title: data.message,
+            showConfirmButton: true,
+            timer: 1500
+        });
+
+        return data; // Rivales no, enemigos
+    } catch (error) {
+        // Manejo de errores
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: error.message,
+            showConfirmButton: true
+        });
+        throw error;
+    }
 }
+
 
 export const destinosServices = {
     listar,

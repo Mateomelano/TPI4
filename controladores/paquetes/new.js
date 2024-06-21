@@ -96,47 +96,49 @@ const htmlAmpaquetes = `
                 </div>
 
                 <!--=====================================
-                Fecha Inicio
-                ======================================-->
-                
-                <div class="form-group mt-2">
-                    
-                    <label>Fecha Inicio</label>
+                  Fecha Inicio
+                  ======================================-->
 
-                    <input 
-                    
-                    class="form-control"
-                    onchange="validateJS(event,'date')"
-                    name="fecha_inicio"
-                    id="paqueteFechaInicio"
-                    required>
+                  <div class="form-group mt-2">
+                      
+                      <label for="paqueteFechaInicio">Fecha Inicio</label>
 
-                    <div class="valid-feedback">Valid.</div>
-                    <div class="invalid-feedback">Please fill out this field.</div>
+                      <input 
+                          type="date"
+                          class="form-control"
+                          onchange="validateJS(event,'date')"
+                          name="fecha_inicio"
+                          id="paqueteFechaInicio"
+                          required
+                      >
 
-                </div>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Please fill out this field.</div>
 
-                <!--=====================================
-                Fecha Fin
-                ======================================-->
-                
-                <div class="form-group mt-2">
-                    
-                    <label>Fecha Fin</label>
+                  </div>
 
-                    <input 
-                    
-                    class="form-control"
-                    onchange="validateJS(event,'date')"
-                    name="fecha_fin"
-                    id="paqueteFechaFin"
-                    required>
+                  <!--=====================================
+                  Fecha Fin
+                  ======================================-->
 
-                    <div class="valid-feedback">Valid.</div>
-                    <div class="invalid-feedback">Please fill out this field.</div>
+                  <div class="form-group mt-2">
+                      
+                      <label for="paqueteFechaFin">Fecha Fin</label>
 
-                </div>
-            </div>
+                      <input 
+                          type="date"
+                          class="form-control"
+                          onchange="validateJS(event,'date')"
+                          name="fecha_fin"
+                          id="paqueteFechaFin"
+                          required
+                      >
+
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Please fill out this field.</div>
+
+                  </div>
+
 
         </div>
         <div class="card-footer">
@@ -171,7 +173,7 @@ export async function newRegister() {
   let d = document;
 
   d.querySelector(".contenidoTitulo").innerHTML = "Agregar Paquete";
-  d.querySelector(".contenidoTituloSec").innerHTML += " Agregar";
+  d.querySelector(".contenidoTituloSec").innerHTML += "Agregar";
 
   crearFormulario();
 
@@ -231,8 +233,7 @@ function guardar(e) {
   var fechaInicio = txtFechaInicio.value;
   var fechaFin = txtFechaFin.value;
 
-  paquetesServices
-    .crear(nombre, id_destino, precio, cupo, fechaInicio, fechaFin)
+  paquetesServices.crear(nombre, id_destino, precio, cupo, fechaInicio, fechaFin)
     .then((respuesta) => {
       formulario.reset();
       window.location.hash = "#/paquetes";

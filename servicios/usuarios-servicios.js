@@ -72,17 +72,47 @@ async function editar(id, nombre, email, password, rol) {
 
 // Función para borrar un usuario
 async function borrar(id) {
-  if (!token) {
-    token=await tokenServices.getToken(); // Obtener el token si no lo tenemos aún
+  try {
+    // Obtener el token si no lo tenemos aún
+    if (!token) {
+      token = await tokenServices.getToken();
+    }
+
+    const urlDelete = `${url}/${id}`;
+    const response = await fetch(urlDelete, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Verificar si la respuesta es exitosa
+    if (!response.ok) {
+      throw new Error("Error al borrar el elemento");
+    }
+
+    const responseData = await response.json();
+
+    // Mostrar alerta de éxito usando SweetAlert2 con el mensaje de la respuesta
+    Swal.fire({
+      icon: 'success',
+      title: responseData.message || 'Elemento borrado exitosamente',
+      showConfirmButton: false,
+      timer: 1500
+    });
+
+    return response; // Devolver la respuesta si es necesario
+  } catch (error) {
+    // Mostrar alerta de error usando SweetAlert2
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al intentar borrar el elemento',
+      text: error.message,
+      showConfirmButton: true
+    });
+
+    throw error; // Propagar el error para manejo adicional si es necesario
   }
-  const urlDelete = `${url}/${id}`;
-  const response = await fetch(urlDelete, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response;
 }
 
 // Objeto que exporta las funciones de servicios de usuarios
