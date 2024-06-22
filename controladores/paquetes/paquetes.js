@@ -1,4 +1,5 @@
 import { paquetesServices } from "../../servicios/paquetes-servicios.js";
+import { destinosServices } from "../../servicios/destinos-servicios.js";
 import { newRegister } from "./new.js";
 import { editRegister } from "./new.js";
 
@@ -20,6 +21,7 @@ const htmlPaquetes =
             <th># </th>
             <th>Nombre</th>
             <th>IdDestino</th>
+            <th>Nombre destino</th>
             <th>Precio</th>
             <th>Cupo</th>
             <th>Fecha Inicio</th>
@@ -35,19 +37,30 @@ const htmlPaquetes =
 
 export async function Paquetes(){
     let d = document
-    let res='';
     d.querySelector('.contenidoTitulo').innerHTML = 'Paquetes';
     d.querySelector('.contenidoTituloSec').innerHTML = '';
     d.querySelector('.rutaMenu').innerHTML = "Paquetes";
     d.querySelector('.rutaMenu').setAttribute('href',"#/paquetes");
     let cP =d.getElementById('contenidoPrincipal');
 
-    res = await paquetesServices.listar();
+    let res = await paquetesServices.listar();
     console.log(res);
-    res.forEach(element => {
-        element.action = "<div class='btn-group'><a class='btn btn-warning btn-sm mr-1 rounded-circle btnEditarPaquete'  href='#/editPaquete' data-idPaquete='"+ element.id +"'> <i class='fas fa-pencil-alt'></i></a><a class='btn btn-danger btn-sm rounded-circle removeItem btnBorrarPaquete'href='#/delPaquete' data-idPaquete='"+ element.id +"'><i class='fas fa-trash'></i></a></div>";
-    });  
-     
+
+    // Iterar sobre cada elemento de res y obtener el nombre del destino
+    for (let element of res) {
+        // Obtener nombre del destino usando await, asumiendo que destinosServices.listar es asíncrono
+        let destino = await destinosServices.listar(element.destino_id);
+        element.nombreDestino = destino.nombre; // Asignar el nombre del destino al elemento
+        element.action = `<div class='btn-group'>
+                            <a class='btn btn-warning btn-sm mr-1 rounded-circle btnEditarPaquete' href='#/editPaquete' data-idPaquete='${element.id}'>
+                                <i class='fas fa-pencil-alt'></i>
+                            </a>
+                            <a class='btn btn-danger btn-sm rounded-circle removeItem btnBorrarPaquete' href='#/delPaquete' data-idPaquete='${element.id}'>
+                                <i class='fas fa-trash'></i>
+                            </a>
+                         </div>`;
+    }
+
     cP.innerHTML =  htmlPaquetes;
 
     llenarTabla(res);
@@ -57,7 +70,7 @@ export async function Paquetes(){
     let btnBorrar = d.querySelectorAll(".btnBorrarPaquete");
 
     btnAgregar.addEventListener("click", agregar);
-    for(let i=0 ; i< btnEditar.length ; i++){
+    for(let i = 0; i < btnEditar.length; i++) {
         btnEditar[i].addEventListener("click", editar);
         btnBorrar[i].addEventListener("click", borrar);
     }
@@ -74,22 +87,22 @@ function editar(){
 
 async function borrar(){
     let id = this.getAttribute('data-idPaquete');
-    let borrar=0;
+    let borrar = 0;
     await Swal.fire({
-        title: 'Esta seguro que desea eliminar el paquete?',
+        title: '¿Está seguro que desea eliminar el paquete?',
         showDenyButton: true,
-        confirmButtonText: 'Si',
+        confirmButtonText: 'Sí',
         denyButtonText: `Cancelar`,
         focusDeny: true
     }).then((result) => {
         if (result.isConfirmed) {
-            borrar=1;
+            borrar = 1;
         } else if (result.isDenied) {
-            borrar=0;
-            Swal.fire('Se cancelo la eliminacion', '', 'info');
+            borrar = 0;
+            Swal.fire('Se canceló la eliminación', '', 'info');
         }
     })
-    if(borrar===1){
+    if(borrar === 1){
         const borrado = await paquetesServices.borrar(id);
     }
     window.location.href = "#/paquetes"; 
@@ -103,6 +116,7 @@ function llenarTabla(res) {
             { data: 'id' },
             { data: 'nombre' },
             { data: 'destino_id' },
+            { data: 'nombreDestino' },
             { data: 'precio' },
             { data: 'cupo' },
             { data: 'fecha_inicio' },
@@ -110,8 +124,8 @@ function llenarTabla(res) {
             { data: 'action', orderable: false },
         ],
         deferRender: true,
-        retrive: true,
-        procesing: true,
+        retrieve: true,
+        processing: true,
         language: {
             sProcessing:     "Procesando...",
             sLengthMenu:     "Mostrar _MENU_ registros",
