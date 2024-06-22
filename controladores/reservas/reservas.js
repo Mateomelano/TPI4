@@ -1,4 +1,6 @@
 import { reservaServices } from "../../servicios/reservas-servicios.js";
+import { paquetesServices } from "../../servicios/paquetes-servicios.js";
+import { usuariosServices } from "../../servicios/usuarios-servicios.js";
 import { newRegister } from "./new.js";
 import { editRegister } from "./new.js";
 
@@ -18,8 +20,10 @@ const htmlReservas =
         <thead>
             <tr>
             <th># </th>
-            <th>Usuario_id</th>
-            <th>Paquete_id</th>
+            <th>ID usuario</th>
+            <th>email Usuario</th>
+            <th>ID paquete</th>
+            <th>nombre Paquete</th>
             <th>Fecha_Reserva</th>
             <th>Cantidad_Personas</th>
             <th>Acciones</th>
@@ -33,17 +37,22 @@ const htmlReservas =
 
 export async function Reservas(){
     let d = document
-    let res='';
     d.querySelector('.contenidoTitulo').innerHTML = 'Reservas';
     d.querySelector('.contenidoTituloSec').innerHTML = '';
     d.querySelector('.rutaMenu').innerHTML = "Reservas";
     d.querySelector('.rutaMenu').setAttribute('href',"#/reservas");
     let cP =d.getElementById('contenidoPrincipal');
 
-    res = await reservaServices.listar();
-    res.forEach(element => {
+    let res = await reservaServices.listar();
+    for (let element of res) {
+        let paquete = await paquetesServices.listar(element.paquete_id);
+        element.paquete = paquete.nombre;
+        let usuario = await usuariosServices.listar(element.usuario_id);
+        element.usuario = usuario.email;
         element.action = "<div class='btn-group'><a class='btn btn-warning btn-sm mr-1 rounded-circle btnEditarReserva'  href='#/editReserva' data-idReserva='"+ element.id +"'> <i class='fas fa-pencil-alt'></i></a><a class='btn btn-danger btn-sm rounded-circle removeItem btnBorrarReserva'href='#/delReserva' data-idReserva='"+ element.id +"'><i class='fas fa-trash'></i></a></div>";
-    });  
+    }
+
+
      
     cP.innerHTML =  htmlReservas;
 
@@ -105,7 +114,9 @@ function llenarTabla(res){
         columns: [
             { data: 'id' },
             { data: 'usuario_id' },
+            { data: 'usuario' },
             { data: 'paquete_id' },
+            { data: 'paquete' },
             { data: 'fecha_reserva' },
             { data: 'cantidad_personas' },
             { data: 'action', orderable: false}

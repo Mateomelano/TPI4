@@ -23,7 +23,7 @@ class ReservaService():
     def update_reserva(self, id: int, data: Reserva):
         reserva = self.db.query(ReservaModel).filter(ReservaModel.id == id).first()
         reserva.usuario_id = data.usuario_id
-        reserva.destino_id = data.destino_id
+        reserva.paquete_id = data.paquete_id
         reserva.fecha_reserva = data.fecha_reserva
         reserva.cantidad_personas = data.cantidad_personas
         self.db.commit()

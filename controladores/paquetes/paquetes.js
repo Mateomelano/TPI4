@@ -44,7 +44,6 @@ export async function Paquetes(){
     let cP =d.getElementById('contenidoPrincipal');
 
     let res = await paquetesServices.listar();
-    console.log(res);
 
     // Iterar sobre cada elemento de res y obtener el nombre del destino
     for (let element of res) {

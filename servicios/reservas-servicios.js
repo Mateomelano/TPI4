@@ -32,6 +32,7 @@ async function crear(usuario_id, paquete_id, fecha_reserva, cantidad_personas) {
             "Content-Type": "application/json", //y el tipo de contenido
         },
         body: JSON.stringify({ // el body es donde se manda en formato json el id, nombre, etc
+            id: 0,
             usuario_id: usuario_id,
             paquete_id: paquete_id,
             fecha_reserva: fecha_reserva,
@@ -42,7 +43,7 @@ async function crear(usuario_id, paquete_id, fecha_reserva, cantidad_personas) {
     return response; //retorna la respuesta ok o no
 }
 
-async function editar(usuario_id, paquete_id, fecha_reserva, cantidad_personas) {
+async function editar(id, usuario_id, paquete_id, fecha_reserva, cantidad_personas) {
 
     if (!token) {
         token=await tokenServices.getToken(); // pide el token si no existe. PEDIIIILO
@@ -55,6 +56,7 @@ async function editar(usuario_id, paquete_id, fecha_reserva, cantidad_personas) 
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
+            id: id,
             usuario_id: usuario_id,
             paquete_id: paquete_id,
             fecha_reserva: fecha_reserva,

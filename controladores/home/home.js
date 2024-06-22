@@ -96,4 +96,7 @@ export async function Home(){
     res = await paquetesServices.listar();
     indPaquetes.innerHTML = res.length;
 
+    res = await reservaServices.listar();
+    indReservas.innerHTML = res.length;
+
 }

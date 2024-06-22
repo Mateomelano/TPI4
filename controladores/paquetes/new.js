@@ -192,7 +192,7 @@ export async function editRegister(id) {
   let paquete = await paquetesServices.listar(id);
 
   txtNombre.value = paquete.nombre;
-  selId_destino.value = paquete.id_destino;
+  selId_destino.value = paquete.destino_id;
   txtPrecio.value = paquete.precio;
   txtCupo.value = paquete.cupo;
   txtFechaInicio.value = paquete.fecha_inicio;

@@ -40,7 +40,7 @@ def create_reserva(reserva: Reserva) -> dict:
 @reserva_router.put('/reserva/{id}', tags=['Reserva'], response_model=dict, status_code=200)
 def update_reserva(id: int, reserva: Reserva)-> dict:
     db = Session()
-    result = ReservaService(db).get_reservas(id)
+    result = ReservaService(db).get_reservas_id(id)
     if not result:
         return JSONResponse(status_code=404, content={'message': "No encontrado"})
     

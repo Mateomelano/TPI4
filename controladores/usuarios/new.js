@@ -183,7 +183,6 @@ function crearFormulario(){
     txtEmail= d.getElementById('usuarioEmail');
     txtPass= d.getElementById('usuarioPassword');
     txtRol= d.getElementById('usuarioRol');
-
 }
 
 function guardar(e) {
