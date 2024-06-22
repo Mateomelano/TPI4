@@ -1,7 +1,7 @@
 import { usuariosServices } from "../../servicios/usuarios-servicios.js";
 import { destinosServices } from "../../servicios/destinos-servicios.js";
 import { paquetesServices } from "../../servicios/paquetes-servicios.js";
-
+import { reservaServices } from "../../servicios/reservas-servicios.js";
 const htmlHome = 
 ` <div class="row" >
     <!-- ./col -->
@@ -50,6 +50,20 @@ const htmlHome =
             <a href="#/paquetes" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
+    
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box">
+            <div class="inner">
+            <h3 id="indReservas">0</h3>
+            <p>Reservas</p>
+            </div>
+            <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#/reservas" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
     <!-- ./col -->
 </div>`
 
@@ -67,6 +81,7 @@ export async function Home(){
     let indUsuarios = d.getElementById ("indUsuarios");
     let indDestinos = d.getElementById ("indDestinos");
     let indPaquetes = d.getElementById ("indPaquetes");
+    let indReservas = d.getElementById ("indReservas");
     //CANTIDAD DE USUARIOS
 
     res = await usuariosServices.listar();
