@@ -22,7 +22,7 @@ const htmlAmpaquetes = `
                     type="text" 
                     class="form-control"
                     pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ ]{1,}"
-                    onchange="validateJS(event,'text')"
+                    onchange="validateJS(event,'nombrePaquetes')"
                     name="nombre"
                     id="paqueteNombre"
                     required>
@@ -271,10 +271,10 @@ function modificar(e) {
   var cupo = txtCupo.value;
   var fechaInicio = txtFechaInicio.value;
   var fechaFin = txtFechaFin.value;
-  var destino = selId_destino.value;
+  var destino = selId_destino.options[selId_destino.selectedIndex];
 
   paquetesServices
-    .editar(idPaquete, nombre, destino, precio, cupo, fechaInicio, fechaFin)
+    .editar(idPaquete, destino.value, nombre, precio, cupo, fechaInicio, fechaFin)
     .then((respuesta) => {
       formulario.reset();
       window.location.hash = "#/paquetes";

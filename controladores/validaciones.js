@@ -56,6 +56,10 @@ function validateJS(event, type) {
       pattern = /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
       errorMessage = "Fecha no válida";
       break;
+    case "nombrePaquetes":
+      pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ ]{10,35}$/;
+      errorMessage = "El nombre debe tener entre 10 y 35 caracteres";
+      break;
     default:
       // Si el tipo no coincide con ninguno de los anteriores, salir sin hacer nada
       return;
