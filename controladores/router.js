@@ -1,8 +1,6 @@
 
 import { Home } from "./home/home.js";
-import { Productos } from "./productos/productos.js";
 import { Usuarios } from "./usuarios/usuarios.js";
-import { Ventas } from "./ventas/ventas.js";
 import { Destinos } from "./destinos/destinos.js";
 import { Paquetes } from "./paquetes/paquetes.js";
 import { Reservas } from "./reservas/reservas.js";
@@ -32,10 +30,6 @@ export function Router(){
         Paquetes();
     }else if(hash==='#/reservas'){
         Reservas();
-    }else if(hash==='#/productos'){
-        Productos();
-    }else if(hash==='#/ventas'){
-        Ventas();
     }     
     console.log (hash);
 }

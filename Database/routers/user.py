@@ -6,7 +6,6 @@ from schemas.user import User
 
 user_router = APIRouter()
 
-
 @user_router.post('/login', tags=['auth'])
 def login(user: User):
     if user.email == "admin@gmail.com" and user.password == "admin":
