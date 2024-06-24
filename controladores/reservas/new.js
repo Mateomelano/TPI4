@@ -58,7 +58,7 @@ const htmlAmreservas = `
 
                 <div class="form-group mt-2">
                     
-                    <label for="Fecha Reserva">Fecha Fin</label>
+                    <label for="Fecha Reserva">Fecha Reserva</label>
 
                     <input 
                           type="date"
