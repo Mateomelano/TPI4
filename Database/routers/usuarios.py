@@ -35,13 +35,13 @@ def login_for_access_token(user: UserLogin):
     
     return JSONResponse(status_code=200, content={"access_token": access_token, "token_type": "bearer"})
 
-@usuarios_router.get('/usuarios', tags=['Usuarios'], response_model=List[Usuarios], status_code=200, dependencies=[Depends(JWTBearer())])
+@usuarios_router.get('/usuarios', tags=['Usuarios'], response_model=List[Usuarios], status_code=200)
 def get_usuarios() -> List[Usuarios]:
     db = SessionLocal()
     result = UsuariosService(db).get_usuarios()
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@usuarios_router.get('/usuarios/{id}', tags=['Usuarios'], response_model=Usuarios, dependencies=[Depends(JWTBearer())])
+@usuarios_router.get('/usuarios/{id}', tags=['Usuarios'], response_model=Usuarios)
 def get_usuarios(id: int = Path(ge=1, le=2000)) -> Usuarios:
     db = SessionLocal()
     result = UsuariosService(db).get_usuarios_id(id)
@@ -49,19 +49,19 @@ def get_usuarios(id: int = Path(ge=1, le=2000)) -> Usuarios:
         return JSONResponse(status_code=404, content={'message': "No encontrado"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@usuarios_router.get('/usuarios/', tags=['Usuarios'], response_model=List[Usuarios], dependencies=[Depends(JWTBearer())])
+@usuarios_router.get('/usuarios/', tags=['Usuarios'], response_model=List[Usuarios])
 def get_usuarios_by_mail(email: str = Query(min_length=5, max_length=35)) -> List[Usuarios]:
     db = SessionLocal()
     result = UsuariosService(db).get_usuarios_by_mail(email)
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@usuarios_router.post('/usuarios', tags=['Usuarios'], response_model=dict, status_code=201, dependencies=[Depends(JWTBearer())])
+@usuarios_router.post('/usuarios', tags=['Usuarios'], response_model=dict, status_code=201)
 def create_usuarios(usuario: Usuarios) -> dict:
     db = SessionLocal()
     UsuariosService(db).create_usuarios(usuario)
     return JSONResponse(status_code=201, content={"message": "Se ha registrado el usuario"})
 
-@usuarios_router.put('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200, dependencies=[Depends(JWTBearer())])
+@usuarios_router.put('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200)
 def update_usuarios(id: int, usuario: Usuarios) -> dict:
     db = SessionLocal()
     result = UsuariosService(db).get_usuarios_id(id)
@@ -71,7 +71,7 @@ def update_usuarios(id: int, usuario: Usuarios) -> dict:
     UsuariosService(db).update_usuarios(id, usuario)
     return JSONResponse(status_code=200, content={"message": "Se ha modificado el usuario"})
 
-@usuarios_router.delete('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200, dependencies=[Depends(JWTBearer())])
+@usuarios_router.delete('/usuarios/{id}', tags=['Usuarios'], response_model=dict, status_code=200)
 def delete_usuarios(id: int) -> dict:
     db = SessionLocal()
     result: UsuarioModel = db.query(UsuarioModel).filter(UsuarioModel.id == id).first()

@@ -1,6 +1,4 @@
 import { Carrusel } from "./carrusel/carrusel.js";
-import { listarProductos } from "./listarProductos/listarProductos.js";
-import { vistaProducto } from "./listarProductos/vistaProducto.js";
 import {
   getUsuarioAutenticado,
   login,
@@ -14,9 +12,7 @@ export function RouterTienda() {
   setSession(session);
   let hash = location.hash;
 
-  if (hash === "#vistaProducto") {
-    vistaProducto();
-  } else if (hash === "#login") {
+  if (hash === "#login") {
     login();
   } else if (hash === "#register") {
     register();
@@ -25,7 +21,6 @@ export function RouterTienda() {
     location.replace("tienda.html");
   } else if (hash === "") {
     Carrusel();
-    listarProductos();
   }
   console.log(hash);
 }

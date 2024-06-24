@@ -13,14 +13,14 @@ from schemas.reserva import Reserva
 reserva_router = APIRouter()
 
 
-@reserva_router.get('/reserva', tags=['Reserva'], response_model=List[Reserva], status_code=200, dependencies=[Depends(JWTBearer())])
+@reserva_router.get('/reserva', tags=['Reserva'], response_model=List[Reserva], status_code=200)
 def get_reserva() -> List[Reserva]:
     db = SessionLocal()
     result = ReservaService(db).get_reservas()
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
 
-@reserva_router.get('/reserva/{id}', tags=['Reserva'], response_model=Reserva, dependencies=[Depends(JWTBearer())])
+@reserva_router.get('/reserva/{id}', tags=['Reserva'], response_model=Reserva)
 def get_reserva(id: int = Path(ge=1, le=2000)) -> Reserva:
     db = SessionLocal()
     result = ReservaService(db).get_reservas_id(id)
@@ -30,14 +30,14 @@ def get_reserva(id: int = Path(ge=1, le=2000)) -> Reserva:
 
 
 
-@reserva_router.post('/reserva', tags=['Reserva'], response_model=dict, status_code=201, dependencies=[Depends(JWTBearer())])
+@reserva_router.post('/reserva', tags=['Reserva'], response_model=dict, status_code=201)
 def create_reserva(reserva: Reserva) -> dict:
     db = SessionLocal()
     ReservaService(db).create_reserva(reserva)
     return JSONResponse(status_code=201, content={"message": "Se ha registrado la reserva"})
 
 
-@reserva_router.put('/reserva/{id}', tags=['Reserva'], response_model=dict, status_code=200, dependencies=[Depends(JWTBearer())])
+@reserva_router.put('/reserva/{id}', tags=['Reserva'], response_model=dict, status_code=200)
 def update_reserva(id: int, reserva: Reserva)-> dict:
     db = SessionLocal()
     result = ReservaService(db).get_reservas_id(id)
@@ -48,7 +48,7 @@ def update_reserva(id: int, reserva: Reserva)-> dict:
     return JSONResponse(status_code=200, content={"message": "Se ha modificado la reserva"})
 
 
-@reserva_router.delete('/reserva/{id}', tags=['Reserva'], response_model=dict, status_code=200, dependencies=[Depends(JWTBearer())])
+@reserva_router.delete('/reserva/{id}', tags=['Reserva'], response_model=dict, status_code=200)
 def delete_reserva(id: int)-> dict:
     db = SessionLocal()
     result: ReservaModel = db.query(ReservaModel).filter(ReservaModel.id == id).first()
