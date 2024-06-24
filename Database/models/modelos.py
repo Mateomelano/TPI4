@@ -1,16 +1,17 @@
-from config.database import Base
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship
+from config.database import Base
 
 class Usuarios(Base):
     __tablename__ = 'usuarios'
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(16), nullable=False)
     email = Column(String(25), unique=True, nullable=False, index=True)
-    password = Column(String(25), nullable=False)
+    password = Column(String(60), nullable=False)  # Ajustado para almacenar hashes de contraseñas seguros
     rol = Column(String(20), nullable=False)
 
-    reservas = relationship("Reserva", back_populates="usuario")  # Corrected: Use "usuario" class
+    reservas = relationship("Reserva", back_populates="usuario")
+
 
 class Reserva(Base):
     __tablename__ = 'reservas'
@@ -20,8 +21,10 @@ class Reserva(Base):
     fecha_reserva = Column(Date, nullable=False)
     cantidad_personas = Column(Integer, nullable=False)
 
-    usuario = relationship(Usuarios, back_populates="reservas" )  # Use Usuarios class with forward reference
+    usuario = relationship("Usuarios", back_populates="reservas")
     paquete = relationship("PaqueteViaje", back_populates="reservas")
+
+
 class PaqueteViaje(Base):
     __tablename__ = 'paquetes_viaje'
     id = Column(Integer, primary_key=True, index=True)
@@ -34,6 +37,8 @@ class PaqueteViaje(Base):
 
     destino = relationship("Destino", back_populates="paquetes")
     reservas = relationship("Reserva", back_populates="paquete")
+
+
 class Destino(Base):
     __tablename__ = 'destinos'
     id = Column(Integer, primary_key=True, index=True)

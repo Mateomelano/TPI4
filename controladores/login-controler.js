@@ -60,7 +60,7 @@ async function usuarioExiste() {
         .catch(error => console.log(error));
 
     if (!existeUsuario) {
-        mostrarMensaje('Error al autenticar usuario');
+        mostrarMensaje('usuario/contraseña incorrectos');
     } else {
         frmLogin.outerHTML = '';
         document.getElementById("sitio").classList.remove('d-none');
@@ -85,7 +85,11 @@ function validarForm(e) {
 }
 
 function mostrarMensaje(msj) {
-    alert(msj);
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: msj
+    });
 }
 
 function setUsuarioAutenticado(booleano) {
@@ -100,4 +104,12 @@ function logout() {
     setUsuarioAutenticado(false);
     sessionStorage.removeItem('letraUsuario');
     window.location.replace("index.html");
+}
+
+export function get_mail() {
+    return inputEmail.value;
+}
+
+export function get_pass() {
+    return inputPassword.value;
 }

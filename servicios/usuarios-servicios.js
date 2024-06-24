@@ -2,7 +2,6 @@ const url = "http://127.0.0.1:8000/usuarios";
 import { tokenServices } from "./token-servicios.js";
 
 let token = "";
-
 // Función para obtener el token JWT
 
 // Función para listar usuarios
@@ -10,6 +9,7 @@ async function listar(id) {
   if (!token) {
     token=await tokenServices.getToken(); // Obtener el token si no lo tenemos aún
   }
+  console.log(token);
   let cadUrl;
   if (isNaN(id)) 
     cadUrl = url;
