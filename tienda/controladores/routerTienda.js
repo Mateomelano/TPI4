@@ -1,4 +1,6 @@
 import { Carrusel } from "./carrusel/carrusel.js";
+import { listarPaquetes } from "./listarProductos/listarProductos.js";
+
 import {
   getUsuarioAutenticado,
   login,
@@ -21,6 +23,7 @@ export function RouterTienda() {
     location.replace("tienda.html");
   } else if (hash === "") {
     Carrusel();
+    listarPaquetes();
   }
   console.log(hash);
 }
