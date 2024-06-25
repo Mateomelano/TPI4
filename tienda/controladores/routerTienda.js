@@ -1,5 +1,5 @@
 import { Carrusel } from "./carrusel/carrusel.js";
-import { listarPaquetes } from "./listarProductos/listarProductos.js";
+import { listarPaquetes } from "./listarProductos/listarPaquetes.js";
 
 import {
   getUsuarioAutenticado,
