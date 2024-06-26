@@ -78,35 +78,67 @@ function editar(){
     editRegister(id);
 }
 
-async function borrar(){
+async function borrar() {
     let id = this.getAttribute('data-idReserva');
-    let borrar=0;
+    let borrar = 0;
     await Swal.fire({
-        title: 'Esta seguro que desea eliminar la Reserva?',
+        title: '¿Está seguro que desea eliminar la Reserva?',
         showDenyButton: true,
-        confirmButtonText: 'Si',
+        confirmButtonText: 'Sí',
         denyButtonText: `Cancelar`,
         focusDeny: true
     }).then((result) => {
         if (result.isConfirmed) {
-            borrar=1;
+            borrar = 1;
         } else if (result.isDenied) {
-            borrar=0;
-            Swal.fire('Se cancelo la eliminacion', '', 'info');
+            borrar = 0;
+            Swal.fire('Se canceló la eliminación', '', 'info');
         }
-    })
-    if(borrar===1){
-        const borrado = await reservaServices.borrar(id);
-        Swal.fire({
-            icon: 'success',
-            title: borrado.message,
-            showConfirmButton: true,
-            timer: 1500
-        })
+    });
+
+    if (borrar === 1) {
+        try {
+            // Obtener la reserva a eliminar
+            let reserva = await reservaServices.listar(id);
+            let paquete_id = reserva.paquete_id;
+            let cantidad_personas = reserva.cantidad_personas;
+
+            // Eliminar la reserva
+            const borrado = await reservaServices.borrar(id);
+
+            // Obtener información del paquete
+            let paquete = await paquetesServices.listar(paquete_id);
+
+            if (paquete) {
+                // Actualizar el cupo del paquete
+                let nuevoCupo = paquete.cupo + cantidad_personas;
+                await paquetesServices.editar(paquete.id, paquete.destino_id, paquete.nombre, paquete.precio, nuevoCupo, paquete.fecha_inicio, paquete.fecha_fin);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Reserva Eliminada',
+                    text: 'La reserva se ha eliminado y el cupo se ha actualizado correctamente.',
+                    showConfirmButton: true,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo encontrar el paquete para actualizar el cupo.',
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.message,
+            });
+        }
     }
     window.location.href = "#/reservas"; 
 }
-
 function llenarTabla(res){
     new DataTable('#reservasTable', {
         responsive: true,

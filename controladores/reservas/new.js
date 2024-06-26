@@ -195,61 +195,91 @@ async function crearFormulario(){
 }
 
 
-function guardar(e){
+async function guardar(e) {
     e.preventDefault();
 
     var usuario_id = selUsuario_id.options[selUsuario_id.selectedIndex];
     var paquete_id = selPaquete_id.options[selPaquete_id.selectedIndex];
     var fecha_reserva = txtFecha_reserva.value;
-    var cantidad_personas = txtCantidad_personas.value;
+    var cantidad_personas = parseInt(txtCantidad_personas.value);
 
+    // Obtener información del paquete seleccionado
+    let paquete = await paquetesServices.listar(paquete_id.value);
 
-
-    reservaServices.crear(usuario_id.value, paquete_id.value, fecha_reserva, cantidad_personas)
-        .then(respuesta => {
+    if (paquete && cantidad_personas <= paquete.cupo) {
+        // Crear la reserva si hay suficiente cupo
+        try {
+            await reservaServices.crear(usuario_id.value, paquete_id.value, fecha_reserva, cantidad_personas);
+            // Actualizar el cupo del paquete
+            let nuevoCupo = paquete.cupo - cantidad_personas;
+            await paquetesServices.editar(paquete.id, paquete.destino_id, paquete.nombre, paquete.precio, nuevoCupo, paquete.fecha_inicio, paquete.fecha_fin);
             formulario.reset();
             window.location.hash = "#/reservas";
             swal.fire({
                 icon: 'success',
                 title: 'Reserva Creada',
-                text: respuesta.message,
-            })
-        })
-        .catch(error => {
+                text: 'La reserva se ha creado y el cupo se ha actualizado correctamente.',
+            });
+        } catch (error) {
             console.log(error);
             swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: error.message,
-            })
+            });
+        }
+    } else {
+        // Mostrar error si no hay suficiente cupo
+        swal.fire({
+            icon: 'error',
+            title: 'Cupo Insuficiente',
+            text: 'No hay suficiente cupo para la cantidad de personas en este paquete.',
         });
+    }
 }
-
-function modificar(e){
+async function modificar(e) {
     e.preventDefault();
 
     var usuario_id = selUsuario_id.options[selUsuario_id.selectedIndex];
     var paquete_id = selPaquete_id.options[selPaquete_id.selectedIndex];
     var fecha_reserva = txtFecha_reserva.value;
-    var cantidad_personas = txtCantidad_personas.value; 
+    var cantidad_personas = parseInt(txtCantidad_personas.value);
 
+    // Obtener información del paquete seleccionado
+    let paquete = await paquetesServices.listar(paquete_id.value);
+    let reservaOriginal = await reservaServices.listar(idReserva);
 
-    reservaServices.editar(idReserva, usuario_id.value, paquete_id.value, fecha_reserva, cantidad_personas)
-        .then(respuesta => {
+    let cantidadOriginal = reservaOriginal.cantidad_personas;
+    let diferenciaCantidad = cantidad_personas - cantidadOriginal;
+
+    if (paquete && (diferenciaCantidad <= 0 || diferenciaCantidad <= paquete.cupo)) {
+        // Modificar la reserva si hay suficiente cupo para la diferencia
+        try {
+            await reservaServices.editar(idReserva, usuario_id.value, paquete_id.value, fecha_reserva, cantidad_personas);
+            // Actualizar el cupo del paquete
+            let nuevoCupo = paquete.cupo - diferenciaCantidad;
+            await paquetesServices.editar(paquete.id, paquete.destino_id, paquete.nombre, paquete.precio, nuevoCupo, paquete.fecha_inicio, paquete.fecha_fin);
             formulario.reset();
             window.location.hash = "#/reservas";
             swal.fire({
                 icon: 'success',
-                title: 'Reserva Modificado',
-                text: respuesta.message,
-            })
-        })
-        .catch(error => {
+                title: 'Reserva Modificada',
+                text: 'La reserva se ha modificado y el cupo se ha actualizado correctamente.',
+            });
+        } catch (error) {
             console.log(error);
             swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: error.message,
-            })
+            });
+        }
+    } else {
+        // Mostrar error si no hay suficiente cupo
+        swal.fire({
+            icon: 'error',
+            title: 'Cupo Insuficiente',
+            text: 'No hay suficiente cupo para la cantidad de personas en este paquete.',
         });
+    }
 }
