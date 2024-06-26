@@ -1,6 +1,14 @@
 import { paquetesServices } from "../../../servicios/paquetes-servicios.js";
 
-function htmlPaquete(id, nombre, idDestino, precio, cupo, fechaInicio, fechaFin) {
+function htmlPaquete(
+  id,
+  nombre,
+  idDestino,
+  precio,
+  cupo,
+  fechaInicio,
+  fechaFin
+) {
   /**1- ESTA FUNCION RECIBE COMO PARAMETRO los siguiente datos id, imagen, nombre y precio del producto */
   /**2- A ESTOS PARAMETROS LOS CONCATENA DENTRO DEL CODIGO CORRESPONDIENTE AL COMPONENTE itemProducto ( ASSETS/MODULOS/itemProducto.html)*/
   /**3- POR ULTIMO DEVUELVE LA CADENA RESULTANTE. */
@@ -14,20 +22,15 @@ function htmlPaquete(id, nombre, idDestino, precio, cupo, fechaInicio, fechaFin)
   const resultado = `
       <a href="?idPaquete=${id}#vistaPaquete" class="pro">
         
-        <img src="" alt="imagen"/>
+        <img src="./img/travelus-img/beach.jpg" alt="imagen"/>
           <div class="des">
             <span>${nombre}</span>
-            <h5>${idDestino}</h5>
             <div class="star">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
             </div>
             <h4>$${precio}</h4>
-            <p>${cupo}</p>
-            <p>${fechaInicio} - ${fechaFin}</p>
+            <p class="cupo">Cupo: ${cupo}</p>
+            <p class="fecha">${fechaInicio} - ${fechaFin}</p>
 
           </div>
         
@@ -37,21 +40,28 @@ function htmlPaquete(id, nombre, idDestino, precio, cupo, fechaInicio, fechaFin)
   return resultado;
 }
 
-export async function listarPaquetes () {
+export async function listarPaquetes() {
   const seccionPaquetes = document.querySelector(".listarPaquetes");
   const paquetes = await paquetesServices.listar();
   let paquetesHTML = "";
   for (const paquete of paquetes) {
-    paquetesHTML += htmlPaquete(paquete.id, paquete.nombre, paquete.destino_id, paquete.precio, paquete.cupo, paquete.fecha_inicio, paquete.fecha_fin);
+    paquetesHTML += htmlPaquete(
+      paquete.id,
+      paquete.nombre,
+      paquete.destino_id,
+      paquete.precio,
+      paquete.cupo,
+      paquete.fecha_inicio,
+      paquete.fecha_fin
+    );
   }
   seccionPaquetes.innerHTML = paquetesHTML;
 }
 
+/*1- ESTA FUNCION DEBERA CONSULTAR EN EL API-REST TODOS LOS PRODUCTOS PERTENECIENTES A LA CATEGORIA CON CODIGO ID  */
+/*2- HACER UN BUCLE CON EL RESULTADO DE LA CONSULTA Y RECORRELO PRODUCTO POR PRODUCTO*/
+/*3- EN EL INTERIOR DEL BUCLE DEBERA LLAMAR A LA FUNCION htmlItemProducto y acumular su resultado en una cadena de caracteres */
+/*4- LUEGO DEL BUCLE Y CON LA CADENA RESULTANTE SE DEBE CAPTURAR EL ELEMENTO DEL DOM PARA ASIGNAR ESTOS PRODUCTOS DENTRO DE LA CATEGORIA CORRESPONDIENTE */
+/*5- PARA ELLO PODEMOS HACER USO DE UN SELECTOR CSS QUE SELECCIONE EL ATRIBUTO data-idCategoria=X, Ó LA CLASE .productos  .SIENDO X EL VALOR LA CATEGORIA EN CUESTION.*/
 
-  /*1- ESTA FUNCION DEBERA CONSULTAR EN EL API-REST TODOS LOS PRODUCTOS PERTENECIENTES A LA CATEGORIA CON CODIGO ID  */
-  /*2- HACER UN BUCLE CON EL RESULTADO DE LA CONSULTA Y RECORRELO PRODUCTO POR PRODUCTO*/
-  /*3- EN EL INTERIOR DEL BUCLE DEBERA LLAMAR A LA FUNCION htmlItemProducto y acumular su resultado en una cadena de caracteres */
-  /*4- LUEGO DEL BUCLE Y CON LA CADENA RESULTANTE SE DEBE CAPTURAR EL ELEMENTO DEL DOM PARA ASIGNAR ESTOS PRODUCTOS DENTRO DE LA CATEGORIA CORRESPONDIENTE */
-  /*5- PARA ELLO PODEMOS HACER USO DE UN SELECTOR CSS QUE SELECCIONE EL ATRIBUTO data-idCategoria=X, Ó LA CLASE .productos  .SIENDO X EL VALOR LA CATEGORIA EN CUESTION.*/
-
-  //1
+//1
