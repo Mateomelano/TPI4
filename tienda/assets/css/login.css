@@ -46,7 +46,7 @@
 
 .formLogin button {
   padding: 10px;
-  width: 55%;
+  width: 30%;
   color: #fff;
   background-color: #7130e9;
   font-family: "Inter", sans-serif;
@@ -58,10 +58,23 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 10px;
   cursor: pointer;
   margin-bottom: 20px;
 }
 
 .formLogin button:hover {
   transform: scale(1.02);
+  box-shadow: 0 2px 10px rgba(138, 13, 255, 0.322);
+}
+
+.paragraph-login {
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+}
+
+.paragraph-login a {
+  color: #7130e9;
+  font-family: "Inter", sans-serif;
 }

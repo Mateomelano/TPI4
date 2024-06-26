@@ -72,7 +72,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "League Spartan";
 }
 
 #header {
@@ -86,6 +85,21 @@
   position: sticky;
   top: 0;
   left: 0;
+}
+
+#header h1 {
+  font-family: "Kanit", sans-serif;
+}
+
+#header i {
+  color: #7130e9;
+}
+
+#header a {
+  text-decoration: none;
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 #navbar {
