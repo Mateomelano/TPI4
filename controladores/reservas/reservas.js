@@ -117,7 +117,7 @@ async function borrar() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Reserva Eliminada',
-                    text: 'La reserva se ha eliminado y el cupo se ha actualizado correctamente.',
+                    text: 'La reserva se ha eliminado',
                     showConfirmButton: true,
                     timer: 1500
                 });

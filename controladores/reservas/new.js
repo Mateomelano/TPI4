@@ -218,7 +218,7 @@ async function guardar(e) {
             swal.fire({
                 icon: 'success',
                 title: 'Reserva Creada',
-                text: 'La reserva se ha creado y el cupo se ha actualizado correctamente.',
+                text: 'La reserva se ha creado',
             });
         } catch (error) {
             console.log(error);
@@ -264,7 +264,7 @@ async function modificar(e) {
             swal.fire({
                 icon: 'success',
                 title: 'Reserva Modificada',
-                text: 'La reserva se ha modificado y el cupo se ha actualizado correctamente.',
+                text: 'La reserva se ha modificado',
             });
         } catch (error) {
             console.log(error);
