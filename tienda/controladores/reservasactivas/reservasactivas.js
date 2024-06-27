@@ -1,3 +1,6 @@
+import { paquetesServices } from "../../../servicios/paquetes-servicios.js";
+
+
 export async function ReservasActivas() {
 
     const carrusel = document.querySelector(".carrusel");
@@ -10,6 +13,7 @@ export async function ReservasActivas() {
     carrusel.innerHTML = "";
     reservas.innerHTML = "";
     listarPaquetes.innerHTML = "";
-}
 
+
+}
 

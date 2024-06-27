@@ -29,9 +29,9 @@ def get_reserva(id: int = Path(ge=1, le=2000)) -> Reserva:
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
 @reserva_router.get('/reserva/usuario_id/{id}', tags=['Reserva'], response_model=List[Reserva], status_code=200)
-def get_reserva_by_id_usuario(usuario_id: int = Path(ge=1, le=2000)) -> List[Reserva]:
+def get_reserva_by_id_usuario(id: int = Path(ge=1, le=2000)) -> List[Reserva]:
     db = SessionLocal()
-    result = ReservaService(db).get_reservas_id_usuario(usuario_id)
+    result = ReservaService(db).get_reservas_usuario_id(id)
     if not result:
         return JSONResponse(status_code=404, content={'message': "No encontrado"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
