@@ -77,7 +77,7 @@ function htmlVistaPaquete(id, nombre, precio, destino_id, cupo, fecha_inicio, fe
           <input type="number" step="1" min ="1" value="1" id="cantidadPersonas">
         </div>
 
-      <a id="btnComprar" >Comprar</a>
+      <a id="btnComprar">Comprar</a>
     </div>
     </div>
   `;
@@ -111,33 +111,45 @@ function registrarCompra() {
    *
    */
 
-  /*1*/
-  /*2*/
-  const session = getUsuarioAutenticado();
-  /*3*/
-  if (!session.autenticado) {
-    alert("No se ha registrado en la plataforma");
-    return;
-  }
-  else{
-      /*4-5-6-7-8*/
-  const idUsuario = session.idUsuario;
-  const idPaquete = document.getElementById('IdPaquete').getAttribute('data-idPaquete');
-  const cantidad_personas = document.getElementById("cantidadPersonas").value;
-  const fecha = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato ISO
-  alert(fecha);
-  reservaServices.crear(
-    idUsuario,
-    idPaquete,
-    fecha,
-    cantidad_personas,
-  );
-  /*9*/
-  location.replace("tienda.html");
-  /*10*/
-  swal.fire({
-    text: "Compra Finalizada con Exito"
-  });
 
+  // 1
+  // 2
+  const session = getUsuarioAutenticado();
+  // 3
+  if (!session.autenticado) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Para realizar una compra debe iniciar sesión"
+    });
+  } else {
+    // 4-5-6-7-8
+    const idUsuario = session.idUsuario;
+    const idPaquete = document.getElementById('IdPaquete').getAttribute('data-idPaquete');
+    const cantidad_personas = document.getElementById("cantidadPersonas").value;
+    const fecha = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato ISO
+
+    reservaServices.crear(idUsuario, idPaquete, fecha, cantidad_personas)
+    .then((res) => {
+      if (res.ok == 'true') {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: res.message
+        });
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Listo!",
+          text: "Compra finalizada"
+        }).then(() => {
+          // 9
+          location.replace("tienda.html");
+        });
+      }
+    });
+
+    // 10
   }
 }
+

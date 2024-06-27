@@ -1,5 +1,6 @@
 const url = "http://127.0.0.1:8000/reserva";
 import { tokenServices } from "./token-servicios.js";
+import { paquetesServices } from "./paquetes-servicios.js";
 
 let token = "";
 
@@ -25,25 +26,36 @@ async function crear(usuario_id, paquete_id, fecha_reserva, cantidad_personas) {
     if (!token) {
         token=await tokenServices.getToken(); // pide el token si no existe. PEDIIIILO
     }
-    const response = await fetch(url, {  //hace un fecth a la url pero le pasa los datos en forma de jotason
-        method: "POST", //como esta creando el metodo es POST
-        headers: {
-            Authorization: `Bearer ${token}`, //el header contiene el token 
-            "Content-Type": "application/json", //y el tipo de contenido
-        },
-        body: JSON.stringify({ // el body es donde se manda en formato json el id, nombre, etc
-            id: 0,
-            usuario_id: usuario_id,
-            paquete_id: paquete_id,
-            fecha_reserva: fecha_reserva,
-            cantidad_personas: cantidad_personas
-
-        })
-    });
-    return response; //retorna la respuesta ok o no
+    let paquete = await paquetesServices.listar(paquete_id);
+    if (parseInt(paquete.cupo) < cantidad_personas) {
+        return {
+            ok: 'true',
+            message: "No hay cupo suficiente para la reserva"
+        }
+    } else {
+        paquete.cupo = paquete.cupo - cantidad_personas;
+        await paquetesServices.editar(paquete_id, paquete.destino_id, paquete.nombre, paquete.precio, paquete.cupo, paquete.fecha_inicio, paquete.fecha_fin);
+        const response = await fetch(url, {  //hace un fecth a la url pero le pasa los datos en forma de jotason
+            method: "POST", //como esta creando el metodo es POST
+            headers: {
+                Authorization: `Bearer ${token}`, //el header contiene el token 
+                "Content-Type": "application/json", //y el tipo de contenido
+            },
+            body: JSON.stringify({ // el body es donde se manda en formato json el id, nombre, etc
+                id: 0,
+                usuario_id: usuario_id,
+                paquete_id: paquete_id,
+                fecha_reserva: fecha_reserva,
+                cantidad_personas: cantidad_personas
+    
+            })
+        });
+        return response; //retorna la respuesta ok o no
+    }
+    
 }
 
-async function editar(id, usuario_id, paquete_id, fecha_reserva, cantidad_personas) {
+async function editar(id, usuario_id, paquete_id, fecha_reserva, cantidad_personas, cantidad_personas_enreserva) {
 
     if (!token) {
         token=await tokenServices.getToken(); // pide el token si no existe. PEDIIIILO
@@ -63,7 +75,7 @@ async function editar(id, usuario_id, paquete_id, fecha_reserva, cantidad_person
             cantidad_personas: cantidad_personas
         })
     });
-    return response;  //amigo o enemigo
+        return response;  //amigo o enemigo
 }
 
 async function borrar(id) {
