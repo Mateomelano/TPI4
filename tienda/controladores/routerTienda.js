@@ -1,5 +1,6 @@
 import { Carrusel } from "./carrusel/carrusel.js";
 import { listarPaquetes } from "./listarProductos/listarPaquetes.js";
+import { vistaPaquete } from "./listarProductos/vistaPaquete.js";
 
 import {
   getUsuarioAutenticado,
@@ -24,6 +25,8 @@ export function RouterTienda() {
   } else if (hash === "") {
     Carrusel();
     listarPaquetes();
+  } else if (hash === "#vistaPaquete") {
+    vistaPaquete();
   }
   console.log(hash);
 }

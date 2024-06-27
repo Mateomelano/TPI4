@@ -32,8 +32,7 @@ const htmlLogin = `
             </div>
         </form>
     </div>
-</div>
-`;
+</div>`;
 
 /* 2- Se deben definir 4 variables globales al módulo, una para el formulario html, y otras tres para los inputs de email, contraseña y repetir contraseña */
 var formulario;
@@ -75,10 +74,10 @@ function crearFormulario(registrar) {
     var seccionCarrusel = document.querySelector(".carrusel");
     seccionCarrusel.innerHTML = "";
     /* 2 */
-    var seccionProductos = document.querySelector(".seccionProductos");
-    var vistaProducto = document.querySelector(".vistaProducto");
-    seccionProductos.innerHTML = "";
-    vistaProducto.innerHTML = "";
+    var listarPaquetes = document.querySelector(".listarPaquetes");
+    var vistaPaquetes = document.querySelector(".vistaPaquetes");
+    listarPaquetes.innerHTML = "";
+    vistaPaquetes.innerHTML = "";
     /* 3 */
     var seccionLogin = document.querySelector(".seccionLogin");
     seccionLogin.innerHTML = htmlLogin;
@@ -168,11 +167,6 @@ async function ingresar(e) {
       mostrarMensaje(error.message);
     }
   }
-  
-  
-  
-
-
 
 async function usuarioExiste() {
     /**

@@ -1,9 +1,9 @@
 /**ESTE COMPONENTE SE ENCARGA DE MOSTRAR EL DETALLE DE UN PRODUCTO */
-import { productosServices } from "../../../servicios/productos-servicios.js";
-import { ventasServices } from "../../../servicios/ventas-servicios.js";
+import { paquetesServices } from "../../../servicios/paquetes-servicios.js";
+import { reservaServices } from "../../../servicios/reservas-servicios.js";
 import { getUsuarioAutenticado } from "../login/login.js";
 
-export async function vistaProducto() {
+export async function vistaPaquete() {
   /**1-En esta función se deben capturar los elementos html: .carrusel, .seccionProducto, .seccionLogin. Para luego
    * blanquear su contenido.
    * 2-Se deberá capturar el elemento .vistaProducto.
@@ -15,35 +15,35 @@ export async function vistaProducto() {
    */
   /*1*/
   const carrusel = document.querySelector(".carrusel");
-  const seccionProducto = document.querySelector(".seccionProducto");
+  const seccionPaquetes = document.querySelector(".seccionPaquetes");
   const seccionLogin = document.querySelector(".seccionLogin");
   
   seccionLogin.innerHTML = ""
   carrusel.innerHTML = "";
-  //errorseccionProducto.innerHTML = "";
+  //seccionPaquetes.innerHTML = "";
 
   /*2*/
-  const vistaProducto = document.querySelector(".vistaProducto");
+  const vistaPaquetes = document.querySelector(".vistaPaquetes");
   /*3*/
-  const idProducto = leerParametro();
+  const idPaquete = leerParametro();
   /*4*/
-  if (idProducto) {
-    const producto = await productosServices.listar(idProducto);
-    const htmlProducto = htmlVistaProducto(
-      producto.id,
-      producto.nombre,
-      producto.descripcion,
-      producto.precio,
-      producto.foto
+  if (idPaquete) {
+    const paquete = await paquetesServices.listar(idPaquete);
+    const htmlPaquete = htmlVistaPaquete(
+      paquete.id,
+      paquete.nombre,
+      paquete.precio,
+      paquete.destino_id,
+      paquete.cupo,
+      paquete.fecha_inicio,
+      paquete.fecha_fin
     );
-    vistaProducto.innerHTML = htmlProducto;
+    vistaPaquetes.innerHTML = htmlPaquete;
     document.getElementById("btnComprar").addEventListener('click',registrarCompra)
-    console.log("hola")
   }
-  console.log("chau")
 }
 
-function htmlVistaProducto(id, nombre, descripcion, precio, foto) {
+function htmlVistaPaquete(id, nombre, precio, destino_id, cupo, fecha_inicio, fecha_fin) {
   /**1- ESTA FUNCION RECIBE COMO PARAMETRO los siguiente datos id, nombre, descripcion, precio e imagen del producto */
   /**2- A ESTOS PARAMETROS LOS CONCATENA DENTRO DEL CODIGO CORRESPONDIENTE AL COMPONENTE vistaProducto ( ASSETS/MODULOS/vistaProducto.html)*/
   /**3- POR ULTIMO DEVUELVE LA CADENA RESULTANTE. */
@@ -58,19 +58,23 @@ function htmlVistaProducto(id, nombre, descripcion, precio, foto) {
   const resultado = `
   <div class="contenedor-producto">
     <div class="imagen">
-      <img src="${foto}" alt="producto">
+      <img src="./img/travelus-img/beach.jpg" alt="producto">
     </div>
     <div class="texto">
       <p class="tag">NUEVO</p>
-      <p id="nameProducto" data-idProducto=${id}>${nombre}</p>
+      <p id="namePaquete" data-idPaquete=${id}>${nombre}</p>
 
-      <p id="descripcionProducto">${descripcion}</p>
+      <p id="IdPaquete" data-idPaquete=${id}></p>
 
       <p id="precioProducto">$${precio}</p>
 
+      <p class="cupo">Cupo: ${cupo}</p>
+
+      <p class="fecha">${fecha_inicio} - ${fecha_fin}</p>
+
         <div class="form-group">
-          <label for="cantidadProducto">Cantidad</label>
-          <input type="number" step="1" min ="1" value="1" id="cantidadProducto">
+          <label for="cantidadPersonas">Cantidad</label>
+          <input type="number" step="1" min ="1" value="1" id="cantidadPersonas">
         </div>
 
       <a id="btnComprar" >Comprar</a>
@@ -82,7 +86,7 @@ function htmlVistaProducto(id, nombre, descripcion, precio, foto) {
 function leerParametro() {
   // Captura el idProducto de la dirección URL enviada por la página que llama
   const words = new URLSearchParams(window.location.search);
-  let cad = words.get("idProducto");
+  let cad = words.get("idPaquete");
   if (!cad) return null;
   return cad.trim();
 }
@@ -118,22 +122,22 @@ function registrarCompra() {
   else{
       /*4-5-6-7-8*/
   const idUsuario = session.idUsuario;
-  const emailUsuario = session.email;
-  const idProducto = document.getElementById('nameProducto').dataset.idproducto;
-  const nameProducto = document.getElementById("nameProducto").textContent;
-  const cantidadProducto = document.getElementById("cantidadProducto").value;
-  const fecha = new Date().toISOString(); // Obtener la fecha actual en formato ISO
-  ventasServices.crear(
+  const idPaquete = document.getElementById('IdPaquete').getAttribute('data-idPaquete');
+  const cantidad_personas = document.getElementById("cantidadPersonas").value;
+  const fecha = new Date().toISOString().split('T')[0]; // Obtener la fecha actual en formato ISO
+  alert(fecha);
+  reservaServices.crear(
     idUsuario,
-    emailUsuario,
-    idProducto,
-    nameProducto,
-    cantidadProducto,
-    fecha
+    idPaquete,
+    fecha,
+    cantidad_personas,
   );
   /*9*/
   location.replace("tienda.html");
   /*10*/
-  alert("Compra Finalizada con Exito");
+  swal.fire({
+    text: "Compra Finalizada con Exito"
+  });
+
   }
 }

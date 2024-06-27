@@ -45,15 +45,19 @@ export async function listarPaquetes() {
   const paquetes = await paquetesServices.listar();
   let paquetesHTML = "";
   for (const paquete of paquetes) {
-    paquetesHTML += htmlPaquete(
-      paquete.id,
-      paquete.nombre,
-      paquete.destino_id,
-      paquete.precio,
-      paquete.cupo,
-      paquete.fecha_inicio,
-      paquete.fecha_fin
-    );
+    if (paquete.cupo < 1) {
+      
+    } else {
+      paquetesHTML += htmlPaquete(
+        paquete.id,
+        paquete.nombre,
+        paquete.destino_id,
+        paquete.precio,
+        paquete.cupo,
+        paquete.fecha_inicio,
+        paquete.fecha_fin
+      );
+    }
   }
   seccionPaquetes.innerHTML = paquetesHTML;
 }
