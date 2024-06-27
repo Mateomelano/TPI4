@@ -14,6 +14,10 @@ class ReservaService():
     def get_reservas_id(self, id):
         result = self.db.query(ReservaModel).filter(ReservaModel.id == id).first()
         return result
+    
+    def get_reservas_usuario_id(self, id):
+        result = self.db.query(ReservaModel).filter(ReservaModel.usuario_id == id).all()
+        return result
 
     def create_reserva(self, Product: Reserva):
         new_reserva = ReservaModel(**Product.dict())

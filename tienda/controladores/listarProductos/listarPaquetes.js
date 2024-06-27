@@ -24,13 +24,13 @@ function htmlPaquete(
         
         <img src="./img/travelus-img/beach.jpg" alt="imagen"/>
           <div class="des">
-            <span>${nombre}</span>
+            <span>${nombre} <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
             <div class="star">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              
             </div>
             <h4>$${precio}</h4>
             <p class="cupo">Cupo: ${cupo}</p>
-            <p class="fecha">${fechaInicio} - ${fechaFin}</p>
+            <p class="fecha">del ${fechaInicio} al ${fechaFin}</p>
 
           </div>
         

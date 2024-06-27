@@ -1,17 +1,16 @@
-.vistaProducto {
+.vistaPaquetes {
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
-.contenedor-producto {
-    width: 800px;
+.contenedor-paquete {
+    width: 1000px;
     display: flex;
 }
 
 .imagen img {
-    width: 400px;
+    width: 750px;
     padding: 10px 12px;
     border: 2px solid #1a1a1a;
     border-radius: 25px;
@@ -29,19 +28,25 @@
 }
 
 .tag {
-    background-color: #000;
+    background-color: #7130e9;
     color: #fff;
-    width: 30%;
     text-align: center;
     margin-top: 150px;
+    width: 50%;
 }
 
-#nameProducto {
+.texto {
+    padding: 10px 12px;
+}
+
+#namePaquete {
     text-transform: uppercase;
     font-size: 24px;
+    margin: 1vh;
+    font-weight: bold;
 }
 
-#descripcionProducto {
+#descripcionPaquete {
     margin-top: 10px;
     font-family: "League Spartan";
     font-size: 14px;
@@ -49,14 +54,14 @@
     letter-spacing: 0.5px;
 }
 
-#precioProducto {
+#precioPaquete {
     margin-top: 15px;
-    background-color: #000;
+    background-color: #7130e9;
     text-align: center;
     color: #fff;
-    width: 35%;
     padding: 2.5px;
     border-radius: 25px;
+    margin: 1vh;
 }
 
 .form-group {
@@ -68,17 +73,21 @@ label {
     margin-top: 10px;
     margin-bottom: 0px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 20px;
     color: #333;
 }
 
 input[type="number"] {
-    width: 40px;
+    
     padding: 8px;
     font-size: 12px;
     border: 1px solid #141414;
     border-radius: 4px;
     margin-bottom: 10px;
+}
+
+.cupo, .fecha {
+    font-size: 12px !important;
 }
 
 #btnComprar {
@@ -98,3 +107,4 @@ input[type="number"] {
     color: #000000;
     border: 1px solid blue;
 }
+

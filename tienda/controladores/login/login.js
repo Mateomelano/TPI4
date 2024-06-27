@@ -78,6 +78,9 @@ function crearFormulario(registrar) {
     var vistaPaquetes = document.querySelector(".vistaPaquetes");
     listarPaquetes.innerHTML = "";
     vistaPaquetes.innerHTML = "";
+    
+    var buscador = document.querySelector(".buscador");
+    buscador.style.display = "none";
     /* 3 */
     var seccionLogin = document.querySelector(".seccionLogin");
     seccionLogin.innerHTML = htmlLogin;

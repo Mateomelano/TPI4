@@ -382,3 +382,45 @@
 .footer-links a:hover {
   color: #3f71ea;
 }
+
+.buscador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 5vh;
+}
+
+.buscadorcentrado {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.buscador h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 700;
+}
+
+#searchBar {
+  width: 500px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  font-family: "Inter", sans-serif;
+}
+
+#searchBar:focus {
+  border-color: #7130e9;
+  outline: none;
+}

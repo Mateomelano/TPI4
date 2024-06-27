@@ -17,9 +17,13 @@ export async function vistaPaquete() {
   const carrusel = document.querySelector(".carrusel");
   const seccionPaquetes = document.querySelector(".seccionPaquetes");
   const seccionLogin = document.querySelector(".seccionLogin");
+  const buscador = document.querySelector(".buscador");
+  const reservas = document.querySelector(".seccionReservas");
+  buscador.style.display = "none";
   
   seccionLogin.innerHTML = ""
   carrusel.innerHTML = "";
+  reservas.innerHTML = "";
   //seccionPaquetes.innerHTML = "";
 
   /*2*/
@@ -56,7 +60,7 @@ function htmlVistaPaquete(id, nombre, precio, destino_id, cupo, fecha_inicio, fe
    */
 
   const resultado = `
-  <div class="contenedor-producto">
+  <div class="contenedor-paquete">
     <div class="imagen">
       <img src="./img/travelus-img/beach.jpg" alt="producto">
     </div>
@@ -66,11 +70,11 @@ function htmlVistaPaquete(id, nombre, precio, destino_id, cupo, fecha_inicio, fe
 
       <p id="IdPaquete" data-idPaquete=${id}></p>
 
-      <p id="precioProducto">$${precio}</p>
+      <p id="precioPaquete">$${precio}</p>
 
       <p class="cupo">Cupo: ${cupo}</p>
 
-      <p class="fecha">${fecha_inicio} - ${fecha_fin}</p>
+      <p class="fecha">fechas: <br>del ${fecha_inicio} al ${fecha_fin}</p>
 
         <div class="form-group">
           <label for="cantidadPersonas">Cantidad</label>
