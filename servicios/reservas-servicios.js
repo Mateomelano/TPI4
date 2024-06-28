@@ -118,9 +118,23 @@ async function borrar(id) {
     }
 }
 
+async function listarPorUsuario(id) {
+    if (!token) {
+        token = await tokenServices.getToken(); // pide el token si no existe
+    }
+    const urlGet = `${url}/usuario_id/${id}`;
+    const response = await fetch(urlGet, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.json();
+}
+
 
 export const reservaServices = {
     listar,
+    listarPorUsuario,
     crear,
     editar,
     borrar,

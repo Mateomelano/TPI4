@@ -54,11 +54,10 @@ export async function ReservasActivas() {
         listarPaquetes.innerHTML = "";
 
         const seccionReservas = document.querySelector(".seccionReservas");
-        const reservasActivas = await reservaServices.listar();
+        const reservasActivas = await reservaServices.listarPorUsuario(session.idUsuario);
         let reservasHTML = "";
         for (const reserva of reservasActivas) {
             const nombre = await paquetesServices.listar(reserva.paquete_id)
-            console.log(nombre)
             reservasHTML += htmlReserva(
                 reserva.id,
                 reserva.usuario_id,
