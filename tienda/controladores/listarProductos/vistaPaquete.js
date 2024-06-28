@@ -124,7 +124,7 @@ function registrarCompra() {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Para realizar una compra debe iniciar sesión"
+      text: "Para ver las reservas debe iniciar sesión"
     });
   } else {
     // 4-5-6-7-8

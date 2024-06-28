@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="/tienda/assets/css/login.css" />
 
     <link rel="stylesheet" href="/tienda/assets/css/listarPaquete.css" />
+    
+    <link rel="stylesheet" href="/tienda/assets/css/reservasactivas.css">
     <!-- Font Awesome -->
     <link
       rel="stylesheet"
@@ -78,13 +80,13 @@
 
       <section class="carrusel"></section>
 
-      <section class="buscador"><div class="buscadorcentrado"><h3>BUSCAR DESTINOS</h3> <input type="text" id="searchBar" placeholder="Buscar por nombre..." onkeyup="filterPaquetes()"></input></div></section>
+      <section class="buscador"><div class="buscadorcentrado"><h3>BUSCAR DESTINOS</h3> <input type="text" id="searchBar" placeholder="Buscar por nombre..." onkeyup="filter()"></input></div></section>
 
       <section class="listarPaquetes" id="paquetesList"></section>
 
       <section class="vistaPaquetes"></section>
 
-      <section class="seccionReservas"></section>
+      <section class="seccionReservas" id="reservasList"></section>
 
     </main>
 
