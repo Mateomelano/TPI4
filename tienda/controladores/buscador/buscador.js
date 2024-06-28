@@ -7,7 +7,7 @@ function filter() {
     
     for (let i = 0; i < reservas.length; i++) {
         const reserva = reservas[i];
-        const nombre = reserva.querySelector('.des span').textContent.toLowerCase();
+        const nombre = reserva.querySelector('.des .title').textContent.toLowerCase();
 
         if (nombre.includes(searchBar)) {
             reserva.style.display = '';
