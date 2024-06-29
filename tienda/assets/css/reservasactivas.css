@@ -1,50 +1,97 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playwrite+IS:wght@100..400&display=swap");
-
-* {
-  font-family: "Inter";
-}
-
 .seccionReservas {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-family: "Inter", sans-serif;
+    width: 100%;
 }
 
-.seccionReservas .pro {
-    width: 350px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+
+.seccionReservas .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+}
+  
+.pro {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 4px;
     overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+.pro:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.pro-img {
+    width: 350px;
+    height: auto;
+    display: block;
+}
+  
+.des {
+    padding: 15px;
+    text-align: left;
+}
+  
+.user {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #333;
+}
+  
+.user i {
+    color: #7130e9;
+    margin-left: 5px;
+}
+  
+.package {
+    font-size: 20px;
+    margin: 10px 0;
+    color: #7130e9;
+}
+  
+.fecha, .cant_pers {
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+    border: #7130e9 1px solid;
+    border-radius: 4px;
+    padding: 3px 6px;
+    margin: 5px;
+    flex: 1;
+    
+}
+  
+.eliminarBtn {
+    background-color: #7130e9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
     transition: all 0.2s ease;
-    padding: 15px 15px;
-    text-align: start;
-    margin-bottom: 30px;
+    margin: 5px 0 0 0;
 }
-
-.seccionReservas .pro:hover {
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.15);
-    transform: scale(1.02);
+  
+.elimarBtn:hover {
+    background-color: #fc2011;
+    box-shadow: 0 10px 10px rgba(138, 13, 255, 0.322);
 }
-
-.seccionReservas .pro h4 {
-    background-color: #202020;
-    color: #ffffff !important;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(51, 51, 51, 0.322);
-    padding: 5px 10px;
-}
-
-.seccionReservas .pro p {
-    background-color: #202020;
-    color: #ffffff !important;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(51, 51, 51, 0.322);
-    padding: 5px 10px;
-}
-
-.seccionReservas .pro img{
-    width: 50%;
-}
-
-
