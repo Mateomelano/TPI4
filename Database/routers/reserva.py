@@ -43,7 +43,7 @@ def create_reserva(reserva: Reserva) -> dict:
     return JSONResponse(status_code=201, content={"message": "Se ha registrado la reserva"})
 
 
-@reserva_router.put('/reserva/{id}', tags=['Reserva'], response_model=dict, status_code=200)
+@reserva_router.put('/reserva/{id}', tags=['Reserva'], response_model=dict, status_code=200, dependencies=[Depends(JWTBearer())])
 def update_reserva(id: int, reserva: Reserva)-> dict:
     db = SessionLocal()
     result = ReservaService(db).get_reservas_id(id)

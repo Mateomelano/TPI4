@@ -27,7 +27,7 @@ const htmlHome =
         <!-- small box -->
         <div class="small-box">
             <div class="inner">
-            <h3 id="indDestinos">44</h3>
+            <h3 id="indDestinos">DESTINOS</h3>
 
             <p>Destinos</p>
             </div>
