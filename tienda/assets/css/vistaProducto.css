@@ -85,7 +85,7 @@ label {
 input[type="number"] {
   padding: 8px;
   font-size: 12px;
-  border: 1px solid #141414;
+  border: 1px solid #7130e9;
   border-radius: 4px;
   margin-bottom: 10px;
 }
@@ -93,6 +93,13 @@ input[type="number"] {
 .cupo,
 .fecha {
   font-size: 12px !important;
+}
+
+.fecha {
+  border: none !important;
+  margin-left: -5px !important;
+  text-transform: capitalize;
+  margin-bottom: -10px !important;
 }
 
 #btnComprar {
