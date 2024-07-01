@@ -3,7 +3,7 @@ import jwt
 from datetime import datetime, timedelta
 from fastapi import HTTPException
 
-SECRET_KEY = "LACLAVE"  # Cambia esto por una clave secreta adecuada
+SECRET_KEY = "LACLAVE"  
 ALGORITHM = "HS256"
 
 def create_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:

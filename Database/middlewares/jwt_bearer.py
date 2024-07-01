@@ -13,3 +13,4 @@ class JWTBearer(HTTPBearer):
         user = db.query(UsuarioModel).filter(UsuarioModel.email == data.get('sub')).first()
         if not user:
             raise HTTPException(status_code=403, detail="Credenciales son invalidas")
+        

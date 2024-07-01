@@ -6,16 +6,8 @@ from routers.reserva import reserva_router
 from routers.usuarios import usuarios_router
 from routers.destino import destino_router
 from routers.paqueteViaje import paquetes_router
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
-
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
 
 app = FastAPI()
 app.title = "Mi aplicación con  FastAPI"
